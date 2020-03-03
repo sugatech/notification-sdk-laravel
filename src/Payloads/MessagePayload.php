@@ -1,8 +1,10 @@
 <?php
 
-namespace Notification\SDK\Builder;
+namespace Notification\SDK\Payloads;
 
 use Illuminate\Contracts\Support\Arrayable;
+use Notification\SDK\Builders\FcmBuilder;
+use Notification\SDK\Builders\MessageBuilder;
 
 class MessagePayload implements Arrayable
 {
@@ -17,7 +19,7 @@ class MessagePayload implements Arrayable
      */
     public function __construct($message)
     {
-        $this->fcmBuilder = $message->getFcmBuilder();
+        $this->fcmBuilder = $message->getFcmPayload();
     }
 
     /**

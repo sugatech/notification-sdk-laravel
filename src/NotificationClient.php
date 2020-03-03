@@ -4,7 +4,7 @@ namespace Notification\SDK;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-use Notification\SDK\Builder\MessageBuilder;
+use Notification\SDK\Builders\MessageBuilder;
 use Psr\Http\Message\StreamInterface;
 
 class NotificationClient
@@ -49,7 +49,7 @@ class NotificationClient
                 'Authorization' => $this->accessToken,
             ],
             RequestOptions::JSON => [
-                'channels' => $message,
+                'channels' => $message->build(),
             ]
         ]);
 

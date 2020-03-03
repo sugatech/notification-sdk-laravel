@@ -1,10 +1,11 @@
 <?php
 
-namespace Notification\SDK\Builder;
+namespace Notification\SDK\Payloads;
 
 use Illuminate\Contracts\Support\Arrayable;
+use Notification\SDK\Builders\FcmBuilder;
 
-class FcmPayLoad implements Arrayable
+class FcmPayload implements Arrayable
 {
     /**
      * @internal
@@ -138,7 +139,7 @@ class FcmPayLoad implements Arrayable
      */
     public function toArray()
     {
-        $fcm = [
+        return [
             'notifiable_id' => $this->notifiableId,
             'content' => [
                 'title' => $this->title,
@@ -157,12 +158,5 @@ class FcmPayLoad implements Arrayable
             ],
             'data' => $this->data,
         ];
-
-        // remove null values
-        $fcm = array_filter($fcm, function($value) {
-            return $value !== null;
-        });
-
-        return $fcm;
     }
 }

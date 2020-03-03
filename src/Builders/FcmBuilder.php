@@ -1,6 +1,8 @@
 <?php
 
-namespace Notification\SDK\Builder;
+namespace Notification\SDK\Builders;
+
+use Notification\SDK\Payloads\FcmPayload;
 
 class FcmBuilder
 {
@@ -468,10 +470,10 @@ class FcmBuilder
     /**
      * Build an PayloadNotification.
      *
-     * @return FcmPayLoad
+     * @return FcmPayload
      */
     public function build()
     {
-        return new FcmPayLoad($this);
+        return new FcmPayload($this);
     }
 }
