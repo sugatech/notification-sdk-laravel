@@ -468,7 +468,7 @@ class FcmBuilder
     }
 
     /**
-     * Build an PayloadNotification.
+     * Build an FcmBuilder.
      *
      * @return FcmPayload
      */

@@ -109,7 +109,7 @@ class FcmPayload implements Arrayable
     protected $data;
 
     /**
-     * PayloadNotification constructor.
+     * FcmBuilder constructor.
      *
      * @param FcmBuilder $builder
      */
@@ -133,7 +133,7 @@ class FcmPayload implements Arrayable
     }
 
     /**
-     * convert PayloadNotification to array.
+     * convert FcmBuilder to array.
      *
      * @return array
      */
