@@ -54,7 +54,7 @@ class DatabaseBuilder
     }
 
     /**
-     * Build an FcmBuilder.
+     * Build an DatabasePayload.
      *
      * @return DatabasePayload
      */
