@@ -88,4 +88,27 @@ class NotificationClient
 
         return \GuzzleHttp\json_decode($response->getBody(), true);
     }
+
+    /**
+     * @param int $notifiableId
+     * @param string $token
+     * @param string $platform
+     * @return mixed
+     */
+    public function register($notifiableId, $token, $platform)
+    {
+        $response = $this->client->post($this->apiUrl.'/api/client/v1/fcm/token/register', [
+            RequestOptions::HEADERS => [
+                'Content-Type' => 'application/json',
+                'Authorization' => $this->accessToken,
+            ],
+            RequestOptions::JSON => [
+                'notifiable_id' => $notifiableId,
+                'token' => $token,
+                'platform' => $platform,
+            ]
+        ]);
+
+        return \GuzzleHttp\json_decode($response->getBody(), true);
+    }
 }
