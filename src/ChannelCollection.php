@@ -21,12 +21,12 @@ class ChannelCollection
     }
 
     /**
-     * @param Channel $channels
+     * @param Channel $channel
      * @return ChannelCollection
      */
-    public function add($channels)
+    public function add($channel)
     {
-        $this->channels->add($channels);
+        $this->channels->add($channel);
         return $this;
     }
 
