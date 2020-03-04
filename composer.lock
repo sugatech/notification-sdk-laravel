@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a2d62ae25a699378b2e7d80daaccc974",
+    "content-hash": "e46421d137883251eb729faf1b9604f1",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -830,16 +830,16 @@
         },
         {
             "name": "illuminate/notifications",
-            "version": "v6.17.1",
+            "version": "v6.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/notifications.git",
-                "reference": "dafc9ca841f853d752cc46e401b2a351bb2b5d28"
+                "reference": "2c225f97ce794e7b1f47e3ec3de41d0f1edb742d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/notifications/zipball/dafc9ca841f853d752cc46e401b2a351bb2b5d28",
-                "reference": "dafc9ca841f853d752cc46e401b2a351bb2b5d28",
+                "url": "https://api.github.com/repos/illuminate/notifications/zipball/2c225f97ce794e7b1f47e3ec3de41d0f1edb742d",
+                "reference": "2c225f97ce794e7b1f47e3ec3de41d0f1edb742d",
                 "shasum": ""
             },
             "require": {
@@ -879,7 +879,7 @@
             ],
             "description": "The Illuminate Notifications package.",
             "homepage": "https://laravel.com",
-            "time": "2020-02-19T15:05:52+00:00"
+            "time": "2020-02-28T14:18:26+00:00"
         },
         {
             "name": "illuminate/pipeline",

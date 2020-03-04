@@ -9,7 +9,7 @@
         "guzzlehttp/guzzle": "^6.3",
         "illuminate/support": "~5.3|^6.0",
         "illuminate/config": "~5.3|^6.0",
-        "illuminate/notifications": "^6.17"
+        "illuminate/notifications": "~5.3|^6.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0"
