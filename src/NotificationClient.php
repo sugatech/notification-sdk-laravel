@@ -55,4 +55,21 @@ class NotificationClient
 
         return \GuzzleHttp\json_decode($response->getBody(), true);
     }
+
+    /**
+     * @param array $params
+     * @return StreamInterface
+     */
+    public function getMessages($params = [])
+    {
+        $response = $this->client->get($this->apiUrl.'/api/client/v1/database/messages', [
+            RequestOptions::HEADERS => [
+                'Content-Type' => 'application/json',
+                'Authorization' => $this->accessToken,
+            ],
+            RequestOptions::JSON => $params
+        ]);
+
+        return \GuzzleHttp\json_decode($response->getBody(), true);
+    }
 }
