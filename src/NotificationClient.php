@@ -74,12 +74,12 @@ class NotificationClient
     }
 
     /**
-     * @param int $id
+     * @param int $messageId
      * @return mixed
      */
-    public function markAsRead($id)
+    public function markAsRead($messageId)
     {
-        $response = $this->client->post($this->apiUrl.'/api/client/v1/database/messages/'.$id.'/read', [
+        $response = $this->client->post($this->apiUrl.'/api/client/v1/database/messages/'.$messageId.'/read', [
             RequestOptions::HEADERS => [
                 'Content-Type' => 'application/json',
                 'Authorization' => $this->accessToken,
@@ -95,7 +95,7 @@ class NotificationClient
      * @param string $platform
      * @return mixed
      */
-    public function register($notifiableId, $token, $platform)
+    public function registerFcmToken($notifiableId, $token, $platform)
     {
         $response = $this->client->post($this->apiUrl.'/api/client/v1/fcm/token/register', [
             RequestOptions::HEADERS => [
@@ -117,7 +117,7 @@ class NotificationClient
      * @param string $token
      * @return mixed
      */
-    public function unregister($notifiableId, $token)
+    public function unregisterFcmToken($notifiableId, $token)
     {
         $response = $this->client->post($this->apiUrl.'/api/client/v1/fcm/token/unregister', [
             RequestOptions::HEADERS => [
