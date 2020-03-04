@@ -2,10 +2,9 @@
 
 namespace Notification\SDK\Payloads;
 
-use Illuminate\Contracts\Support\Arrayable;
 use Notification\SDK\Builders\DatabaseBuilder;
 
-class DatabasePayload implements Arrayable
+class DatabasePayload extends Payload
 {
     /**
      * @var int

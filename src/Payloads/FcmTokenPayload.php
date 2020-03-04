@@ -2,10 +2,9 @@
 
 namespace Notification\SDK\Payloads;
 
-use Illuminate\Contracts\Support\Arrayable;
 use Notification\SDK\Builders\FcmTokenBuilder;
 
-class FcmTokenPayload implements Arrayable
+class FcmTokenPayload extends Payload
 {
     /**
      * @var string[]

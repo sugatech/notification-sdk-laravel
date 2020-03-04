@@ -3,7 +3,6 @@
 namespace Notification\SDK;
 
 use Illuminate\Notifications\Notification;
-use Notification\SDK\Builders\MessageBuilder;
 
 class NotificationChannel
 {
@@ -13,9 +12,9 @@ class NotificationChannel
      */
     public function send($notifiable, Notification $notification)
     {
-        /** @var MessageBuilder $message */
-        $message = $notification->toNotificationService($notifiable);
+        /** @var ChannelCollection $channels */
+        $channels = $notification->toNotificationService($notifiable);
 
-        app('notification.client')->send($message);
+        app('notification.client')->send($channels);
     }
 }
