@@ -111,4 +111,25 @@ class NotificationClient
 
         return \GuzzleHttp\json_decode($response->getBody(), true);
     }
+
+    /**
+     * @param int $notifiableId
+     * @param string $token
+     * @return mixed
+     */
+    public function unregister($notifiableId, $token)
+    {
+        $response = $this->client->post($this->apiUrl.'/api/client/v1/fcm/token/unregister', [
+            RequestOptions::HEADERS => [
+                'Content-Type' => 'application/json',
+                'Authorization' => $this->accessToken,
+            ],
+            RequestOptions::JSON => [
+                'notifiable_id' => $notifiableId,
+                'token' => $token,
+            ]
+        ]);
+
+        return \GuzzleHttp\json_decode($response->getBody(), true);
+    }
 }
