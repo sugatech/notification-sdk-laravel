@@ -2,7 +2,7 @@
 
 namespace Notification\SDK;
 
-use Illuminate\Support\Facades\Notification;
+use Illuminate\Notifications\Notification;
 use Notification\SDK\Builders\MessageBuilder;
 
 class NotificationChannel

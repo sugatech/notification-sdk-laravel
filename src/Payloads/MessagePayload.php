@@ -58,12 +58,12 @@ class MessagePayload implements Arrayable
     public function toArray()
     {
         $message = [
-            'fcm' => $this->fcmPayload,
-            'database' => $this->databasePayload,
-            'mail' => $this->mailPayload,
-            'sms' => $this->smsPayload,
-            'fcm_token' => $this->fcmTokenPayload,
-            'fcm_topic' => $this->fcmTopicPayload,
+            'fcm' => $this->fcmPayload->toArray(),
+            'database' => $this->databasePayload->toArray(),
+            'mail' => $this->mailPayload->toArray(),
+            'sms' => $this->smsPayload->toArray(),
+            'fcm_token' => $this->fcmTokenPayload->toArray(),
+            'fcm_topic' => $this->fcmTopicPayload->toArray(),
         ];
 
         $message = array_filter($message, function($value) {

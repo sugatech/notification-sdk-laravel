@@ -49,7 +49,7 @@ class NotificationClient
                 'Authorization' => $this->accessToken,
             ],
             RequestOptions::JSON => [
-                'channels' => $message->build(),
+                'channels' => $message->build()->toArray(),
             ]
         ]);
 
