@@ -76,7 +76,7 @@ class MailBuilder
     }
 
     /**
-     * Build an MailPayload.
+     * Build a MailPayload.
      *
      * @return MailPayload
      */

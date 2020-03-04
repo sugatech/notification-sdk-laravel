@@ -31,4 +31,18 @@ class NotificationServiceProvider extends ServiceProvider
             });
         });
     }
+
+    public function boot()
+    {
+        if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
+            $this->publishes([$this->configPath() => config_path('notification.php')], 'notification');
+        } elseif ($this->app instanceof LumenApplication) {
+            $this->app->configure('notification');
+        }
+    }
+
+    protected function configPath()
+    {
+        return __DIR__ . '/../config/notification.php';
+    }
 }

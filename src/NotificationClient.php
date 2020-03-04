@@ -25,7 +25,7 @@ class NotificationClient
     private $apiUrl;
 
     /**
-     * OTPClient constructor.
+     * NotificationClient constructor.
      * @param Client $client
      * @param string $apiUrl
      * @param string $accessToken

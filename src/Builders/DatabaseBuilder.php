@@ -26,7 +26,6 @@ class DatabaseBuilder
         return $this;
     }
 
-
     /**
      * @param array $data
      * @return $this
@@ -54,7 +53,7 @@ class DatabaseBuilder
     }
 
     /**
-     * Build an DatabasePayload.
+     * Build a DatabasePayload.
      *
      * @return DatabasePayload
      */

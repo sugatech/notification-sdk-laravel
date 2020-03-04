@@ -53,7 +53,7 @@ class SmsBuilder
     }
 
     /**
-     * Build an SmsPayload.
+     * Build a SmsPayload.
      *
      * @return SmsPayload
      */

@@ -76,7 +76,7 @@ class FcmBuilder
     }
 
     /**
-     * Build an FcmBuilder.
+     * Build a FcmPayload.
      *
      * @return FcmPayload
      */

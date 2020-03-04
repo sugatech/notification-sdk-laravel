@@ -76,7 +76,7 @@ class FcmTopicBuilder
     }
 
     /**
-     * Build an FcmTopicBuilder.
+     * Build a FcmTopicPayload.
      *
      * @return FcmTopicPayload
      */

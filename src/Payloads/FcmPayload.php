@@ -23,20 +23,19 @@ class FcmPayload implements Arrayable
     protected $content;
 
     /**
-     * FcmBuilder constructor.
+     * FcmPayload constructor.
      *
      * @param FcmBuilder $builder
      */
     public function __construct(FcmBuilder $builder)
     {
-
         $this->notifiableId = $builder->getNotifiableId();
         $this->content = $builder->getContent();
         $this->data = $builder->getData();
     }
 
     /**
-     * convert FcmBuilder to array.
+     * convert FcmPayload to array.
      *
      * @return array
      */

@@ -152,6 +152,7 @@ class MessageBuilder
     }
 
     /**
+     * Build a MessagePayload
      * @return MessagePayload
      */
     public function build()

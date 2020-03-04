@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'api_url' => env('OTP_API_URL'),
-    'access_token' => env('OTP_ACCESS_TOKEN'),
+    'api_url' => env('NOTIFICATION_API_URL'),
+    'access_token' => env('NOTIFICATION_ACCESS_TOKEN'),
 ];

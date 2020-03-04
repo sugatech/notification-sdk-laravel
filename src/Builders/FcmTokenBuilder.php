@@ -76,7 +76,7 @@ class FcmTokenBuilder
     }
 
     /**
-     * Build an FcmTokenBuilder.
+     * Build a FcmTokenPayload.
      *
      * @return FcmTokenPayload
      */

@@ -28,6 +28,7 @@ class SmsPayload implements Arrayable
     }
 
     /**
+     * convert SmsPayload to array
      * @inheritDoc
      */
     public function toArray()

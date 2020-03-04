@@ -34,6 +34,7 @@ class MailPayload implements Arrayable
     }
 
     /**
+     * convert MailPayload to array
      * @inheritDoc
      */
     public function toArray()

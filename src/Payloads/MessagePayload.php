@@ -52,6 +52,7 @@ class MessagePayload implements Arrayable
     }
 
     /**
+     * convert MessagePayload to array
      * @inheritDoc
      */
     public function toArray()

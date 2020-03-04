@@ -23,7 +23,7 @@ class FcmTopicPayload implements Arrayable
     protected $data;
 
     /**
-     * FcmTopicBuilder constructor.
+     * FcmTopicPayload constructor.
      *
      * @param FcmTopicBuilder $builder
      */
@@ -36,7 +36,7 @@ class FcmTopicPayload implements Arrayable
     }
 
     /**
-     * convert FcmTopicBuilder to array.
+     * convert FcmTopicPayload to array.
      *
      * @return array
      */

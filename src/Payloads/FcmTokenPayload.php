@@ -23,7 +23,7 @@ class FcmTokenPayload implements Arrayable
     protected $content;
 
     /**
-     * FcmTokenBuilder constructor.
+     * FcmTokenPayload constructor.
      *
      * @param FcmTokenBuilder $builder
      */
@@ -36,7 +36,7 @@ class FcmTokenPayload implements Arrayable
     }
 
     /**
-     * convert FcmTokenBuilder to array.
+     * convert FcmTokenPayload to array.
      *
      * @return array
      */
