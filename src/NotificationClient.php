@@ -72,4 +72,20 @@ class NotificationClient
 
         return \GuzzleHttp\json_decode($response->getBody(), true);
     }
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function markAsRead($id)
+    {
+        $response = $this->client->post($this->apiUrl.'/api/client/v1/database/messages/'.$id.'/read', [
+            RequestOptions::HEADERS => [
+                'Content-Type' => 'application/json',
+                'Authorization' => $this->accessToken,
+            ],
+        ]);
+
+        return \GuzzleHttp\json_decode($response->getBody(), true);
+    }
 }
