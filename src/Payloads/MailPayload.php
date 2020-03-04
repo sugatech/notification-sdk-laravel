@@ -2,10 +2,9 @@
 
 namespace Notification\SDK\Payloads;
 
-use Illuminate\Contracts\Support\Arrayable;
 use Notification\SDK\Builders\MailBuilder;
 
-class MailPayload implements Arrayable
+class MailPayload extends Payload
 {
     /**
      * @var string

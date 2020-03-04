@@ -4,7 +4,6 @@ namespace Notification\SDK;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-use Notification\SDK\Builders\MessageBuilder;
 use Psr\Http\Message\StreamInterface;
 
 class NotificationClient
@@ -38,10 +37,10 @@ class NotificationClient
     }
 
     /**
-     * @param MessageBuilder $message
+     * @param ChannelCollection $channels
      * @return StreamInterface
      */
-    public function send($message)
+    public function send($channels)
     {
         $response = $this->client->post($this->apiUrl.'/api/client/v1/message/send', [
             RequestOptions::HEADERS => [
@@ -49,7 +48,7 @@ class NotificationClient
                 'Authorization' => $this->accessToken,
             ],
             RequestOptions::JSON => [
-                'channels' => $message->build(),
+                'channels' => $channels->toArray(),
             ]
         ]);
 
