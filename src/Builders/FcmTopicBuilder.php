@@ -2,6 +2,7 @@
 
 namespace Notification\SDK\Builders;
 
+use Notification\SDK\Channels\FcmTopicChannel;
 use Notification\SDK\Payloads\FcmTopicPayload;
 
 class FcmTopicBuilder
@@ -76,12 +77,10 @@ class FcmTopicBuilder
     }
 
     /**
-     * Build a FcmTopicPayload.
-     *
-     * @return FcmTopicPayload
+     * @return FcmTopicChannel
      */
     public function build()
     {
-        return new FcmTopicPayload($this);
+        return new FcmTopicChannel(new FcmTopicPayload($this));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Notification\SDK\Builders;
 
+use Notification\SDK\Channels\FcmTokenChannel;
 use Notification\SDK\Payloads\FcmTokenPayload;
 
 class FcmTokenBuilder
@@ -76,12 +77,10 @@ class FcmTokenBuilder
     }
 
     /**
-     * Build a FcmTokenPayload.
-     *
-     * @return FcmTokenPayload
+     * @return FcmTokenChannel
      */
     public function build()
     {
-        return new FcmTokenPayload($this);
+        return new FcmTokenChannel(new FcmTokenPayload($this));
     }
 }

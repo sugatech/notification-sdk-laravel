@@ -2,6 +2,7 @@
 
 namespace Notification\SDK\Builders;
 
+use Notification\SDK\Channels\DatabaseChannel;
 use Notification\SDK\Payloads\DatabasePayload;
 
 class DatabaseBuilder
@@ -53,12 +54,10 @@ class DatabaseBuilder
     }
 
     /**
-     * Build a DatabasePayload.
-     *
-     * @return DatabasePayload
+     * @return DatabaseChannel
      */
     public function build()
     {
-        return new DatabasePayload($this);
+        return new DatabaseChannel(new DatabasePayload($this));
     }
 }

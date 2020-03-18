@@ -2,6 +2,7 @@
 
 namespace Notification\SDK\Builders;
 
+use Notification\SDK\Channels\SmsChannel;
 use Notification\SDK\Payloads\SmsPayload;
 
 class SmsBuilder
@@ -53,12 +54,10 @@ class SmsBuilder
     }
 
     /**
-     * Build a SmsPayload.
-     *
-     * @return SmsPayload
+     * @return SmsChannel
      */
     public function build()
     {
-        return new SmsPayload($this);
+        return new SmsChannel(new SmsPayload($this));
     }
 }
