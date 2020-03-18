@@ -95,9 +95,10 @@ class NotificationClient
      * @param int $notifiableId
      * @param string $token
      * @param string $platform
+     * @param null|string $topic
      * @return bool
      */
-    public function registerFcmToken($notifiableId, $token, $platform)
+    public function registerFcmToken($notifiableId, $token, $platform, $topic = null)
     {
         return $this->request()
             ->asJson()
@@ -107,6 +108,7 @@ class NotificationClient
                     'notifiable_id' => $notifiableId,
                     'token' => $token,
                     'platform' => $platform,
+                    'topic' => $topic,
                 ]
             )
             ->isSuccess();
@@ -115,9 +117,10 @@ class NotificationClient
     /**
      * @param int $notifiableId
      * @param string $token
+     * @param null|string $topic
      * @return bool
      */
-    public function unregisterFcmToken($notifiableId, $token)
+    public function unregisterFcmToken($notifiableId, $token, $topic = null)
     {
         return $this->request()
             ->asJson()
@@ -126,6 +129,45 @@ class NotificationClient
                 [
                     'notifiable_id' => $notifiableId,
                     'token' => $token,
+                    'topic' => $topic,
+                ]
+            )
+            ->isSuccess();
+    }
+
+    /**
+     * @param string $topic
+     * @param string|string[] $tokens
+     * @return bool
+     */
+    public function subscribeTopic($topic, $tokens)
+    {
+        return $this->request()
+            ->asJson()
+            ->post(
+                $this->getUrl('/fcm/subscribe/topic'),
+                [
+                    'topic' => $topic,
+                    'tokens' => $tokens
+                ]
+            )
+            ->isSuccess();
+    }
+
+    /**
+     * @param string $topic
+     * @param string|string[] $tokens
+     * @return bool
+     */
+    public function unsubscribeTopic($topic, $tokens)
+    {
+        return $this->request()
+            ->asJson()
+            ->post(
+                $this->getUrl('/fcm/unsubscribe/topic'),
+                [
+                    'topic' => $topic,
+                    'tokens' => $tokens,
                 ]
             )
             ->isSuccess();
