@@ -2,17 +2,11 @@
 
 namespace Notification\SDK;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\RequestOptions;
-use Psr\Http\Message\StreamInterface;
+use Zttp\PendingZttpRequest;
+use Zttp\Zttp;
 
 class NotificationClient
 {
-    /**
-     * @var Client
-     */
-    private $client;
-
     /**
      * @var string
      */
@@ -25,110 +19,157 @@ class NotificationClient
 
     /**
      * NotificationClient constructor.
-     * @param Client $client
      * @param string $apiUrl
      * @param string $accessToken
      */
-    public function __construct($client, $apiUrl, $accessToken)
+    public function __construct($apiUrl, $accessToken)
     {
-        $this->client = $client;
         $this->accessToken = $accessToken;
         $this->apiUrl = $apiUrl;
     }
 
     /**
+     * @return PendingZttpRequest
+     */
+    private function request()
+    {
+        return Zttp::withHeaders([
+            'Authorization' => 'Bearer ' . $this->accessToken,
+        ])
+            ->withoutVerifying();
+    }
+
+    /**
+     * @param string $route
+     * @return string
+     */
+    private function getUrl($route)
+    {
+        return $this->apiUrl . '/api/client/v1' . $route;
+    }
+
+    /**
      * @param ChannelCollection $channels
-     * @return StreamInterface
+     * @return bool
      */
     public function send($channels)
     {
-        $response = $this->client->post($this->apiUrl.'/api/client/v1/message/send', [
-            RequestOptions::HEADERS => [
-                'Content-Type' => 'application/json',
-                'Authorization' => $this->accessToken,
-            ],
-            RequestOptions::JSON => [
-                'channels' => $channels->toArray(),
-            ]
-        ]);
-
-        return \GuzzleHttp\json_decode($response->getBody(), true);
+        return $this->request()
+            ->asJson()
+            ->post(
+                $this->getUrl('/message/send'),
+                [
+                    'channels' => $channels->toArray(),
+                ])
+            ->isSuccess();
     }
 
     /**
      * @param array $params
-     * @return StreamInterface
+     * @return object[]
      */
     public function getMessages($params = [])
     {
-        $response = $this->client->get($this->apiUrl.'/api/client/v1/database/messages', [
-            RequestOptions::HEADERS => [
-                'Content-Type' => 'application/json',
-                'Authorization' => $this->accessToken,
-            ],
-            RequestOptions::JSON => $params
-        ]);
-
-        return \GuzzleHttp\json_decode($response->getBody(), true);
+        return $this->request()
+            ->asJson()
+            ->get(
+                $this->getUrl('/database/messages'),
+                $params
+            )
+            ->body();
     }
 
     /**
      * @param int $messageId
-     * @return mixed
+     * @return bool
      */
     public function markAsRead($messageId)
     {
-        $response = $this->client->post($this->apiUrl.'/api/client/v1/database/messages/'.$messageId.'/read', [
-            RequestOptions::HEADERS => [
-                'Content-Type' => 'application/json',
-                'Authorization' => $this->accessToken,
-            ],
-        ]);
-
-        return \GuzzleHttp\json_decode($response->getBody(), true);
+        return $this->request()
+            ->asJson()
+            ->post($this->getUrl('/database/messages/'.$messageId.'/read'))
+            ->isSuccess();
     }
 
     /**
      * @param int $notifiableId
      * @param string $token
      * @param string $platform
-     * @return mixed
+     * @param null|string $topic
+     * @return bool
      */
-    public function registerFcmToken($notifiableId, $token, $platform)
+    public function registerFcmToken($notifiableId, $token, $platform, $topic = null)
     {
-        $response = $this->client->post($this->apiUrl.'/api/client/v1/fcm/token/register', [
-            RequestOptions::HEADERS => [
-                'Content-Type' => 'application/json',
-                'Authorization' => $this->accessToken,
-            ],
-            RequestOptions::JSON => [
-                'notifiable_id' => $notifiableId,
-                'token' => $token,
-                'platform' => $platform,
-            ]
-        ]);
-
-        return \GuzzleHttp\json_decode($response->getBody(), true);
+        return $this->request()
+            ->asJson()
+            ->post(
+                $this->getUrl('/fcm/token/register'),
+                [
+                    'notifiable_id' => $notifiableId,
+                    'token' => $token,
+                    'platform' => $platform,
+                    'topic' => $topic,
+                ]
+            )
+            ->isSuccess();
     }
 
     /**
      * @param int $notifiableId
      * @param string $token
-     * @return mixed
+     * @param null|string $topic
+     * @return bool
      */
-    public function unregisterFcmToken($notifiableId, $token)
+    public function unregisterFcmToken($notifiableId, $token, $topic = null)
     {
-        $response = $this->client->post($this->apiUrl.'/api/client/v1/fcm/token/unregister', [
-            RequestOptions::HEADERS => [
-                'Content-Type' => 'application/json',
-                'Authorization' => $this->accessToken,
-            ],
-            RequestOptions::JSON => [
-                'notifiable_id' => $notifiableId,
-                'token' => $token,
-            ]
-        ]);
+        return $this->request()
+            ->asJson()
+            ->post(
+                $this->getUrl('/fcm/token/unregister'),
+                [
+                    'notifiable_id' => $notifiableId,
+                    'token' => $token,
+                    'topic' => $topic,
+                ]
+            )
+            ->isSuccess();
+    }
 
-        return \GuzzleHttp\json_decode($response->getBody(), true);
+    /**
+     * @param string $topic
+     * @param string|string[] $tokens
+     * @return bool
+     */
+    public function subscribeTopic($topic, $tokens)
+    {
+        return $this->request()
+            ->asJson()
+            ->post(
+                $this->getUrl('/fcm/subscribe/topic'),
+                [
+                    'topic' => $topic,
+                    'tokens' => $tokens
+                ]
+            )
+            ->isSuccess();
+    }
+
+    /**
+     * @param string $topic
+     * @param string|string[] $tokens
+     * @return bool
+     */
+    public function unsubscribeTopic($topic, $tokens)
+    {
+        return $this->request()
+            ->asJson()
+            ->post(
+                $this->getUrl('/fcm/unsubscribe/topic'),
+                [
+                    'topic' => $topic,
+                    'tokens' => $tokens,
+                ]
+            )
+            ->isSuccess();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Notification\SDK\Builders;
 
+use Notification\SDK\Channels\MailChannel;
 use Notification\SDK\Payloads\MailPayload;
 
 class MailBuilder
@@ -78,10 +79,10 @@ class MailBuilder
     /**
      * Build a MailPayload.
      *
-     * @return MailPayload
+     * @return MailChannel
      */
     public function build()
     {
-        return new MailPayload($this);
+        return new MailChannel(new MailPayload($this));
     }
 }

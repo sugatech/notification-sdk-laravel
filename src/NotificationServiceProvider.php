@@ -2,7 +2,6 @@
 
 namespace Notification\SDK;
 
-use GuzzleHttp\Client;
 use Illuminate\Notifications\ChannelManager;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\ServiceProvider;
@@ -22,7 +21,7 @@ class NotificationServiceProvider extends ServiceProvider
                 throw new \InvalidArgumentException('Not found access_token config');
             }
 
-            return new NotificationClient(app(Client::class), $options['api_url'], $options['access_token']);
+            return new NotificationClient($options['api_url'], $options['access_token']);
         });
 
         Notification::resolved(function (ChannelManager $service) {
