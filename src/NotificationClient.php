@@ -50,9 +50,10 @@ class NotificationClient
 
     /**
      * @param ChannelCollection $channels
+     * @param bool $background
      * @return bool
      */
-    public function send($channels)
+    public function send($channels, $background = true)
     {
         return $this->request()
             ->asJson()
@@ -60,6 +61,7 @@ class NotificationClient
                 $this->getUrl('/message/send'),
                 [
                     'channels' => $channels->toArray(),
+                    'background' => $background,
                 ])
             ->isSuccess();
     }

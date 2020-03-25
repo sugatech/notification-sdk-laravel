@@ -7,6 +7,16 @@ use Illuminate\Notifications\Notification;
 class NotificationChannel
 {
     /**
+     * @var bool
+     */
+    private $background;
+
+    public function __construct($background)
+    {
+        $this->background = $background;
+    }
+
+    /**
      * @param mixed $notifiable
      * @param Notification $notification
      */
@@ -15,6 +25,6 @@ class NotificationChannel
         /** @var ChannelCollection $channels */
         $channels = $notification->toNotificationService($notifiable);
 
-        app('notification.client')->send($channels);
+        app('notification.client')->send($channels, $this->background);
     }
 }
