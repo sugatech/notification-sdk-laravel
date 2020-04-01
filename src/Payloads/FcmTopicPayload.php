@@ -7,9 +7,9 @@ use Notification\SDK\Builders\FcmTopicBuilder;
 class FcmTopicPayload extends Payload
 {
     /**
-     * @var string
+     * @var string[]
      */
-    protected $topic;
+    protected $topics;
 
     /**
      * @var null|array
@@ -29,7 +29,7 @@ class FcmTopicPayload extends Payload
     public function __construct(FcmTopicBuilder $builder)
     {
 
-        $this->topic = $builder->getTopic();
+        $this->topics = $builder->getTopics();
         $this->content = $builder->getContent();
         $this->data = $builder->getData();
     }
@@ -42,7 +42,7 @@ class FcmTopicPayload extends Payload
     public function toArray()
     {
         return [
-            'topic' => $this->topic,
+            'topics' => $this->topics,
             'content' => $this->content,
             'data' => $this->data,
         ];

@@ -33,6 +33,16 @@ class FcmTokenBuilder
     }
 
     /**
+     * @param string $token
+     * @return $this
+     */
+    public function addToken($token)
+    {
+        array_push($this->tokens, $token);
+        return $this;
+    }
+
+    /**
      * @param array $params ['title' => '', 'body' => '', 'sound' => '', 'icon' => '', 'click_action' => '']
      * @return $this
      */

@@ -7,9 +7,9 @@ use Notification\SDK\Builders\DatabaseBuilder;
 class DatabasePayload extends Payload
 {
     /**
-     * @var int
+     * @var array
      */
-    protected $notifiableId;
+    protected $notifiableIds;
 
     /**
      * @var array|null
@@ -22,7 +22,7 @@ class DatabasePayload extends Payload
      */
     public function __construct($databaseBuilder)
     {
-        $this->notifiableId = $databaseBuilder->getNotifiableId();
+        $this->notifiableIds = $databaseBuilder->getNotifiableIds();
         $this->data = $databaseBuilder->getData();
     }
 
@@ -32,7 +32,7 @@ class DatabasePayload extends Payload
     public function toArray()
     {
         return [
-            'notifiable_id' => $this->notifiableId,
+            'notifiable_ids' => $this->notifiableIds,
             'data' => $this->data,
         ];
     }
