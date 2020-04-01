@@ -18,7 +18,7 @@ class DatabaseBuilder
     protected $data;
 
     /**
-     * @param int|string|array $id
+     * @param string|array $id
      * @return $this
      */
     public function setNotifiableIds($id)
