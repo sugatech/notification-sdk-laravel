@@ -23,17 +23,22 @@ class FcmBuilder
     protected $data;
 
     /**
-     * @param string|array $id
+     * @param array $ids
      * @return $this
      */
-    public function setNotifiableIds($id)
+    public function setNotifiableIds($ids)
     {
-        if (is_array($id)) {
-            array_merge($this->notifiableIds, $id);
-        } else {
-            array_push($this->notifiableIds, $id);
-        }
+        $this->notifiableIds = $ids;
+        return $this;
+    }
 
+    /**
+     * @param string $id
+     * @return $this
+     */
+    public function addNotifiableId($id)
+    {
+        array_push($this->notifiableIds, $id);
         return $this;
     }
 

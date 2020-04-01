@@ -8,9 +8,9 @@ use Notification\SDK\Payloads\FcmTopicPayload;
 class FcmTopicBuilder
 {
     /**
-     * @var string
+     * @var string[]
      */
-    protected $topic;
+    protected $topics;
 
     /**
      * @var array|null
@@ -23,12 +23,22 @@ class FcmTopicBuilder
     protected $data;
 
     /**
+     * @param string[] $topics
+     * @return $this
+     */
+    public function setTopics($topics)
+    {
+        $this->topics = $topics;
+        return $this;
+    }
+
+    /**
      * @param string $topic
      * @return $this
      */
-    public function setTopic($topic)
+    public function addTopic($topic)
     {
-        $this->topic = $topic;
+        array_push($this->topics, $topic);
         return $this;
     }
 
@@ -53,11 +63,11 @@ class FcmTopicBuilder
     }
 
     /**
-     * @return string
+     * @return string[]
      */
-    public function getTopic()
+    public function getTopics()
     {
-        return $this->topic;
+        return $this->topics;
     }
 
     /**

@@ -18,17 +18,22 @@ class SmsBuilder
     protected $content;
 
     /**
-     * @param string|array $phoneNumber
+     * @param array $phoneNumbers
      * @return $this
      */
-    public function setPhoneNumbers($phoneNumber)
+    public function setPhoneNumbers($phoneNumbers)
     {
-        if (is_array($phoneNumber)) {
-            array_merge($this->phoneNumbers, $phoneNumber);
-        } else {
-            array_push($this->phoneNumbers, $phoneNumber);
-        }
+        $this->phoneNumbers = $phoneNumbers;
+        return $this;
+    }
 
+    /**
+     * @param string $phoneNumber
+     * @return $this
+     */
+    public function addPhoneNumber($phoneNumber)
+    {
+        array_push($this->phoneNumbers, $phoneNumber);
         return $this;
     }
 

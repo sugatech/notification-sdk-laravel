@@ -23,17 +23,22 @@ class MailBuilder
     protected $content;
 
     /**
-     * @param string|array $mail
+     * @param array $mails
      * @return $this
      */
-    public function setMails($mail)
+    public function setMails($mails)
     {
-        if (is_array($mail)) {
-            array_merge($this->mails, $mail);
-        } else {
-            array_push($this->mails, $mail);
-        }
+        $this->mails = $mails;
+        return $this;
+    }
 
+    /**
+     * @param string $mail
+     * @return $this
+     */
+    public function addMail($mail)
+    {
+        array_push($this->mails, $mail);
         return $this;
     }
 
