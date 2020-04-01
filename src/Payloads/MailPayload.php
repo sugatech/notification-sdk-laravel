@@ -7,9 +7,9 @@ use Notification\SDK\Builders\MailBuilder;
 class MailPayload extends Payload
 {
     /**
-     * @var string
+     * @var string[]
      */
-    protected $mail;
+    protected $mails;
 
     /**
      * @var string
@@ -27,7 +27,7 @@ class MailPayload extends Payload
      */
     public function __construct($mailBuilder)
     {
-        $this->mail = $mailBuilder->getMail();
+        $this->mails = $mailBuilder->getMails();
         $this->title = $mailBuilder->getTitle();
         $this->content = $mailBuilder->getContent();
     }
@@ -39,7 +39,7 @@ class MailPayload extends Payload
     public function toArray()
     {
         return [
-            'mail' => $this->mail,
+            'mails' => $this->mails,
             'title' => $this->title,
             'content' => $this->content,
         ];

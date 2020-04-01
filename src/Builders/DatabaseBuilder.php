@@ -8,9 +8,9 @@ use Notification\SDK\Payloads\DatabasePayload;
 class DatabaseBuilder
 {
     /**
-     * @var int
+     * @var array
      */
-    protected $notifiableId;
+    protected $notifiableIds;
 
     /**
      * @var array|null
@@ -21,9 +21,9 @@ class DatabaseBuilder
      * @param mixed $id
      * @return $this
      */
-    public function setNotifiableId($id)
+    public function setNotifiableIds($id)
     {
-        $this->notifiableId = $id;
+        array_push($this->notifiableIds, $id);
         return $this;
     }
 
@@ -38,11 +38,11 @@ class DatabaseBuilder
     }
 
     /**
-     * @return int
+     * @return array
      */
-    public function getNotifiableId()
+    public function getNotifiableIds()
     {
-        return $this->notifiableId;
+        return $this->notifiableIds;
     }
 
     /**

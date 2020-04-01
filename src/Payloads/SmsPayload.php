@@ -7,9 +7,9 @@ use Notification\SDK\Builders\SmsBuilder;
 class SmsPayload extends Payload
 {
     /**
-     * @var string
+     * @var string[]
      */
-    protected $phoneNumber;
+    protected $phoneNumbers;
 
     /**
      * @var string
@@ -22,7 +22,7 @@ class SmsPayload extends Payload
      */
     public function __construct($smsBuilder)
     {
-        $this->phoneNumber = $smsBuilder->getPhoneNumber();
+        $this->phoneNumbers = $smsBuilder->getPhoneNumbers();
         $this->content = $smsBuilder->getContent();
     }
 
@@ -33,7 +33,7 @@ class SmsPayload extends Payload
     public function toArray()
     {
         return [
-            'phone_number' => $this->phoneNumber,
+            'phone_numbers' => $this->phoneNumbers,
             'content' => $this->content,
         ];
     }
