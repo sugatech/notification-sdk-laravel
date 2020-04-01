@@ -23,7 +23,12 @@ class SmsBuilder
      */
     public function setPhoneNumbers($phoneNumber)
     {
-        array_push($this->phoneNumbers, $phoneNumber);
+        if (is_array($phoneNumber)) {
+            array_merge($this->phoneNumbers, $phoneNumber);
+        } else {
+            array_push($this->phoneNumbers, $phoneNumber);
+        }
+
         return $this;
     }
 

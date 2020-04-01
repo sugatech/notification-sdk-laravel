@@ -18,12 +18,17 @@ class DatabaseBuilder
     protected $data;
 
     /**
-     * @param mixed $id
+     * @param int|string|array $id
      * @return $this
      */
     public function setNotifiableIds($id)
     {
-        array_push($this->notifiableIds, $id);
+        if (is_array($id)) {
+            array_merge($this->notifiableIds, $id);
+        } else {
+            array_push($this->notifiableIds, $id);
+        }
+
         return $this;
     }
 
