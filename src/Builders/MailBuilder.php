@@ -8,9 +8,9 @@ use Notification\SDK\Payloads\MailPayload;
 class MailBuilder
 {
     /**
-     * @var string
+     * @var string[]
      */
-    protected $mail;
+    protected $mails;
 
     /**
      * @var string
@@ -23,12 +23,22 @@ class MailBuilder
     protected $content;
 
     /**
+     * @param array $mails
+     * @return $this
+     */
+    public function setMails($mails)
+    {
+        $this->mails = $mails;
+        return $this;
+    }
+
+    /**
      * @param string $mail
      * @return $this
      */
-    public function setMail($mail)
+    public function addMail($mail)
     {
-        $this->mail = $mail;
+        array_push($this->mails, $mail);
         return $this;
     }
 
@@ -53,11 +63,11 @@ class MailBuilder
     }
 
     /**
-     * @return string
+     * @return string[]
      */
-    public function getMail()
+    public function getMails()
     {
-        return $this->mail;
+        return $this->mails;
     }
 
     /**

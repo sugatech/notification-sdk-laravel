@@ -8,9 +8,9 @@ use Notification\SDK\Payloads\SmsPayload;
 class SmsBuilder
 {
     /**
-     * @var string
+     * @var string[]
      */
-    protected $phoneNumber;
+    protected $phoneNumbers;
 
     /**
      * @var string
@@ -18,12 +18,22 @@ class SmsBuilder
     protected $content;
 
     /**
+     * @param array $phoneNumbers
+     * @return $this
+     */
+    public function setPhoneNumbers($phoneNumbers)
+    {
+        $this->phoneNumbers = $phoneNumbers;
+        return $this;
+    }
+
+    /**
      * @param string $phoneNumber
      * @return $this
      */
-    public function setPhoneNumber($phoneNumber)
+    public function addPhoneNumber($phoneNumber)
     {
-        $this->phoneNumber = $phoneNumber;
+        array_push($this->phoneNumbers, $phoneNumber);
         return $this;
     }
 
@@ -38,11 +48,11 @@ class SmsBuilder
     }
 
     /**
-     * @return string
+     * @return string[]
      */
-    public function getPhoneNumber()
+    public function getPhoneNumbers()
     {
-        return $this->phoneNumber;
+        return $this->phoneNumbers;
     }
 
     /**

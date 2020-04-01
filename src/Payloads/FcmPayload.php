@@ -7,9 +7,9 @@ use Notification\SDK\Builders\FcmBuilder;
 class FcmPayload extends Payload
 {
     /**
-     * @var int
+     * @var array
      */
-    protected $notifiableId;
+    protected $notifiableIds;
 
     /**
      * @var null|array
@@ -28,7 +28,7 @@ class FcmPayload extends Payload
      */
     public function __construct(FcmBuilder $builder)
     {
-        $this->notifiableId = $builder->getNotifiableId();
+        $this->notifiableIds = $builder->getNotifiableIds();
         $this->content = $builder->getContent();
         $this->data = $builder->getData();
     }
@@ -41,7 +41,7 @@ class FcmPayload extends Payload
     public function toArray()
     {
         return [
-            'notifiable_id' => $this->notifiableId,
+            'notifiable_ids' => $this->notifiableIds,
             'content' => $this->content,
             'data' => $this->data,
         ];

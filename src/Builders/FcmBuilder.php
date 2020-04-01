@@ -8,9 +8,9 @@ use Notification\SDK\Payloads\FcmPayload;
 class FcmBuilder
 {
     /**
-     * @var int
+     * @var array
      */
-    protected $notifiableId;
+    protected $notifiableIds;
 
     /**
      * @var array|null
@@ -23,12 +23,22 @@ class FcmBuilder
     protected $data;
 
     /**
-     * @param mixed $id
+     * @param array $ids
      * @return $this
      */
-    public function setNotifiableId($id)
+    public function setNotifiableIds($ids)
     {
-        $this->notifiableId = $id;
+        $this->notifiableIds = $ids;
+        return $this;
+    }
+
+    /**
+     * @param string $id
+     * @return $this
+     */
+    public function addNotifiableId($id)
+    {
+        array_push($this->notifiableIds, $id);
         return $this;
     }
 
@@ -53,11 +63,11 @@ class FcmBuilder
     }
 
     /**
-     * @return int
+     * @return array
      */
-    public function getNotifiableId()
+    public function getNotifiableIds()
     {
-        return $this->notifiableId;
+        return $this->notifiableIds;
     }
 
     /**
