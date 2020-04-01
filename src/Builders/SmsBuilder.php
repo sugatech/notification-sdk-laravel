@@ -18,7 +18,7 @@ class SmsBuilder
     protected $content;
 
     /**
-     * @param string $phoneNumber
+     * @param string|array $phoneNumber
      * @return $this
      */
     public function setPhoneNumbers($phoneNumber)
