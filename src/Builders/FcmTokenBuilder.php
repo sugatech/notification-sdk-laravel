@@ -10,7 +10,7 @@ class FcmTokenBuilder
     /**
      * @var string[]
      */
-    protected $tokens;
+    protected $tokens = [];
 
     /**
      * @var array|null
@@ -38,7 +38,7 @@ class FcmTokenBuilder
      */
     public function addToken($token)
     {
-        array_push($this->tokens, $token);
+        $this->tokens[] = $token;
         return $this;
     }
 

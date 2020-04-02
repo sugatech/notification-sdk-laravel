@@ -10,7 +10,7 @@ class FcmTopicBuilder
     /**
      * @var string[]
      */
-    protected $topics;
+    protected $topics = [];
 
     /**
      * @var array|null
@@ -38,7 +38,7 @@ class FcmTopicBuilder
      */
     public function addTopic($topic)
     {
-        array_push($this->topics, $topic);
+        $this->topics[] = $topic;
         return $this;
     }
 
