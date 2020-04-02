@@ -10,7 +10,7 @@ class DatabaseBuilder
     /**
      * @var array
      */
-    protected $notifiableIds;
+    protected $notifiableIds = [];
 
     /**
      * @var array|null
@@ -33,7 +33,7 @@ class DatabaseBuilder
      */
     public function addNotifiableId($id)
     {
-        array_push($this->notifiableIds, $id);
+        $this->notifiableIds[] = $id;
         return $this;
     }
 

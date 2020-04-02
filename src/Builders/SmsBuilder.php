@@ -10,7 +10,7 @@ class SmsBuilder
     /**
      * @var string[]
      */
-    protected $phoneNumbers;
+    protected $phoneNumbers = [];
 
     /**
      * @var string
@@ -33,7 +33,7 @@ class SmsBuilder
      */
     public function addPhoneNumber($phoneNumber)
     {
-        array_push($this->phoneNumbers, $phoneNumber);
+        $this->phoneNumbers[] = $phoneNumber;
         return $this;
     }
 
