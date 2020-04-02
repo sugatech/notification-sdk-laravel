@@ -10,7 +10,7 @@ class MailBuilder
     /**
      * @var string[]
      */
-    protected $mails;
+    protected $mails = [];
 
     /**
      * @var string
@@ -38,7 +38,7 @@ class MailBuilder
      */
     public function addMail($mail)
     {
-        array_push($this->mails, $mail);
+        $this->mails[] = $mail;
         return $this;
     }
 

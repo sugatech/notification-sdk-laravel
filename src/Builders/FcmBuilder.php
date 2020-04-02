@@ -10,7 +10,7 @@ class FcmBuilder
     /**
      * @var array
      */
-    protected $notifiableIds;
+    protected $notifiableIds = [];
 
     /**
      * @var array|null
@@ -38,7 +38,7 @@ class FcmBuilder
      */
     public function addNotifiableId($id)
     {
-        array_push($this->notifiableIds, $id);
+        $this->notifiableIds[] = $id;
         return $this;
     }
 
