@@ -25,7 +25,7 @@ class NotificationChannel
         /** @var ChannelCollection $channels */
         $channels = $notification->toNotificationService($notifiable);
 
-        if (!is_null($notification->isBackground())) {
+        if (method_exists($notification, 'isBackground')) {
             app('notification.client')->send($channels, $notification->isBackground());
         } else {
             app('notification.client')->send($channels, $this->background);
