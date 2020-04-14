@@ -3,6 +3,7 @@
 namespace Notification\SDK;
 
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Collection;
 
 class NotificationChannel
 {
@@ -25,8 +26,12 @@ class NotificationChannel
         /** @var ChannelCollection $channels */
         $channels = $notification->toNotificationService($notifiable);
 
-        $channels->routeNotifications($notifiable, $notification);
+        $collect = new Collection();
+        foreach ($channels as $channel) {
+            $channel->routeNotification($notifiable, $notification);
+            $collect->add($channel);
+        }
 
-        app('notification.client')->send($channels, $this->background);
+        app('notification.client')->send($collect, $this->background);
     }
 }
