@@ -36,4 +36,16 @@ abstract class Channel
     {
         return $this->payload;
     }
+
+    /**
+     * @param $to
+     * @return $this
+     */
+    public function setPayload($to)
+    {
+        $this->payload->setTo($to);
+        return $this;
+    }
+
+    abstract public function getTo($notifiable, $notification);
 }
