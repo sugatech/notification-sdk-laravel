@@ -25,6 +25,8 @@ class NotificationChannel
         /** @var ChannelCollection $channels */
         $channels = $notification->toNotificationService($notifiable);
 
+        $channels->routeNotifications($notifiable, $notification);
+
         app('notification.client')->send($channels, $this->background);
     }
 }
