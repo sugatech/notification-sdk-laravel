@@ -2,6 +2,7 @@
 
 namespace Notification\SDK\Payloads;
 
+use Illuminate\Notifications\Notification;
 use Notification\SDK\Builders\FcmTokenBuilder;
 
 class FcmTokenPayload extends Payload
@@ -35,11 +36,20 @@ class FcmTokenPayload extends Payload
     }
 
     /**
-     * @param $to
+     * @param mixed $notifiable
+     * @param Notification $notification
      */
-    public function setTo($to)
+    public function setTo($notifiable, $notification)
     {
-        $this->tokens[] = $to;
+        if (! $to = $notifiable->routeNotificationFor('fcm_token', $notification)) {
+            return;
+        }
+
+        if (is_array($to)) {
+            array_merge($this->tokens, $to);
+        } else {
+            $this->tokens[] = $to;
+        }
     }
 
     /**

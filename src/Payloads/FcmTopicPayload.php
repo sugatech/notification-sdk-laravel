@@ -2,6 +2,7 @@
 
 namespace Notification\SDK\Payloads;
 
+use Illuminate\Notifications\Notification;
 use Notification\SDK\Builders\FcmTopicBuilder;
 
 class FcmTopicPayload extends Payload
@@ -35,11 +36,20 @@ class FcmTopicPayload extends Payload
     }
 
     /**
-     * @param $to
+     * @param mixed $notifiable
+     * @param Notification $notification
      */
-    public function setTo($to)
+    public function setTo($notifiable, $notification)
     {
-        $this->topics[] = $to;
+        if (! $to = $notifiable->routeNotificationFor('topic', $notification)) {
+            return;
+        }
+
+        if (is_array($to)) {
+            array_merge($this->topics, $to);
+        } else {
+            $this->topics[] = $to;
+        }
     }
 
     /**

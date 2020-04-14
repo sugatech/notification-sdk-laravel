@@ -2,6 +2,7 @@
 
 namespace Notification\SDK\Payloads;
 
+use Illuminate\Notifications\Notification;
 use Notification\SDK\Builders\MailBuilder;
 
 class MailPayload extends Payload
@@ -33,11 +34,20 @@ class MailPayload extends Payload
     }
 
     /**
-     * @param $to
+     * @param mixed $notifiable
+     * @param Notification $notification
      */
-    public function setTo($to)
+    public function setTo($notifiable, $notification)
     {
-        $this->mails[] = $to;
+        if (! $to = $notifiable->routeNotificationFor('mail', $notification)) {
+            return;
+        }
+
+        if (is_array($to)) {
+            array_merge($this->mails, $to);
+        } else {
+            $this->mails[] = $to;
+        }
     }
 
     /**
