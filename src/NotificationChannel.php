@@ -26,8 +26,12 @@ class NotificationChannel
         /** @var ChannelCollection $channels */
         $channels = $notification->toNotificationService($notifiable);
 
-        $channels = $channels->getTo($notifiable, $notification);
+		$channels = $channels->getTo($notifiable, $notification);
 
-        app('notification.client')->send($channels, $this->background);
+        $background = method_exists($notification, 'isBackground') ?
+            $notification->isBackground() :
+            config('notification.channel_background');
+
+        app('notification.client')->send($channels, $background);
     }
 }
