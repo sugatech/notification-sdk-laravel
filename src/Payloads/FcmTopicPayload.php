@@ -35,6 +35,14 @@ class FcmTopicPayload extends Payload
     }
 
     /**
+     * @param $to
+     */
+    public function setTo($to)
+    {
+        $this->topics[] = $to;
+    }
+
+    /**
      * convert FcmTopicPayload to array.
      *
      * @return array

@@ -27,6 +27,14 @@ class DatabasePayload extends Payload
     }
 
     /**
+     * @param $to
+     */
+    public function setTo($to)
+    {
+        $this->notifiableIds[] = $to;
+    }
+
+    /**
      * @inheritDoc
      */
     public function toArray()

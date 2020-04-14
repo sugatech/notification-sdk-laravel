@@ -35,6 +35,14 @@ class FcmTokenPayload extends Payload
     }
 
     /**
+     * @param $to
+     */
+    public function setTo($to)
+    {
+        $this->tokens[] = $to;
+    }
+
+    /**
      * convert FcmTokenPayload to array.
      *
      * @return array
