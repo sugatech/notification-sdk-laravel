@@ -39,4 +39,15 @@ class ChannelCollection
             return [$channel->getKey() => $channel->getPayload()->toArray()];
         })->all();
     }
+
+    public function getTo($notifiable, $notification)
+    {
+        $collect = new Collection();
+        foreach ($this->channels as $channel) {
+            $channel->routeNotification($notifiable, $notification);
+            $collect->add($channel);
+        }
+
+        return $collect;
+    }
 }

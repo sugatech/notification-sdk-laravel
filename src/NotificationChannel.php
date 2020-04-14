@@ -26,12 +26,8 @@ class NotificationChannel
         /** @var ChannelCollection $channels */
         $channels = $notification->toNotificationService($notifiable);
 
-        $collect = new Collection();
-        foreach ($channels as $channel) {
-            $channel->routeNotification($notifiable, $notification);
-            $collect->add($channel);
-        }
+        $channels = $channels->getTo($notifiable, $notification);
 
-        app('notification.client')->send($collect, $this->background);
+        app('notification.client')->send($channels, $this->background);
     }
 }
