@@ -26,7 +26,7 @@ class NotificationServiceProvider extends ServiceProvider
 
         Notification::resolved(function (ChannelManager $service) {
             $service->extend('notification_service', function () {
-                return new NotificationChannel(config('notification.channel_background'));
+                return new NotificationChannel();
             });
         });
     }
