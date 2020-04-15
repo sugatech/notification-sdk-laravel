@@ -2,7 +2,6 @@
 
 namespace Notification\SDK\Payloads;
 
-use Illuminate\Notifications\Notification;
 use Notification\SDK\Builders\FcmBuilder;
 
 class FcmPayload extends Payload

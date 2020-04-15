@@ -2,7 +2,6 @@
 
 namespace Notification\SDK\Payloads;
 
-use Illuminate\Notifications\Notification;
 use Notification\SDK\Builders\FcmTokenBuilder;
 
 class FcmTokenPayload extends Payload
@@ -48,7 +47,6 @@ class FcmTokenPayload extends Payload
      */
     public function setTo($to)
     {
-
         $this->tokens = is_array($to) ? $to : [$to];
     }
 
