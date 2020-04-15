@@ -28,7 +28,6 @@ class FcmTokenPayload extends Payload
      */
     public function __construct(FcmTokenBuilder $builder)
     {
-
         $this->tokens = $builder->getTokens();
         $this->content = $builder->getContent();
         $this->data = $builder->getData();

@@ -28,7 +28,6 @@ class FcmTopicPayload extends Payload
      */
     public function __construct(FcmTopicBuilder $builder)
     {
-
         $this->topics = $builder->getTopics();
         $this->content = $builder->getContent();
         $this->data = $builder->getData();
