@@ -49,7 +49,7 @@ class ChannelCollection implements Arrayable
     public function routeNotificationFor($notifiable, $notification)
     {
         foreach ($this->channels as $channel) {
-            $channel->setNotificationFor($notifiable, $notification);
+            $channel->routeNotificationFor($notifiable, $notification);
         }
     }
 }

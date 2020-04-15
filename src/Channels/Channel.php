@@ -2,6 +2,7 @@
 
 namespace Notification\SDK\Channels;
 
+use Illuminate\Notifications\Notification;
 use Notification\SDK\Payloads\Payload;
 
 abstract class Channel
@@ -37,9 +38,13 @@ abstract class Channel
         return $this->payload;
     }
 
-    public function setNotificationFor($notifiable, $notification)
+    /**
+     * @param mixed $notifiable
+     * @param Notification $notification
+     */
+    public function routeNotificationFor($notifiable, $notification)
     {
-        if ($this->payload->getTo()) {
+        if (!empty($this->payload->getTo())) {
             return;
         }
 
