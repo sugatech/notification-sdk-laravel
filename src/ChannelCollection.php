@@ -2,13 +2,14 @@
 
 namespace Notification\SDK;
 
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Collection;
 use Notification\SDK\Channels\Channel;
 
 class ChannelCollection
 {
     /**
-     * @var Collection
+     * @var Channel[]|Collection
      */
     private $channels;
 
@@ -40,15 +41,16 @@ class ChannelCollection
         })->all();
     }
 
+    /**
+     * @param mixed $notifiable
+     * @param Notification $notification
+     */
     public function validateNotificationFor($notifiable, $notification)
     {
-        foreach ($this->channels as &$channel) {
-            /** @var Channel $channel */
+        foreach ($this->channels as $channel) {
             if (empty($channel->getPayload()->getTo())) {
                 $channel->getPayload()->setTo($notifiable, $notification);
             }
         }
-
-        unset($channel);
     }
 }
