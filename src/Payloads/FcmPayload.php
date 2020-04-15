@@ -10,7 +10,7 @@ class FcmPayload extends Payload
     /**
      * @var array
      */
-    protected $notifiableIds = [];
+    protected $notifiableIds;
 
     /**
      * @var null|array
@@ -53,7 +53,7 @@ class FcmPayload extends Payload
         }
 
         if (is_array($to)) {
-            array_merge($this->notifiableIds, $to);
+            $this->notifiableIds = $to;
         } else {
             $this->notifiableIds[] = $to;
         }

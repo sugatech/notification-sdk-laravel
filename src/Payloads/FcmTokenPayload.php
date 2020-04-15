@@ -10,7 +10,7 @@ class FcmTokenPayload extends Payload
     /**
      * @var string[]
      */
-    protected $tokens = [];
+    protected $tokens;
 
     /**
      * @var null|array
@@ -54,7 +54,7 @@ class FcmTokenPayload extends Payload
         }
 
         if (is_array($to)) {
-            array_merge($this->tokens, $to);
+            $this->tokens= $to;
         } else {
             $this->tokens[] = $to;
         }

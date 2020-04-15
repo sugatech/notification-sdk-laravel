@@ -10,7 +10,7 @@ class MailPayload extends Payload
     /**
      * @var string[]
      */
-    protected $mails = [];
+    protected $mails;
 
     /**
      * @var string
@@ -52,7 +52,7 @@ class MailPayload extends Payload
         }
 
         if (is_array($to)) {
-            array_merge($this->mails, $to);
+            $this->mails = $to;
         } else {
             $this->mails[] = $to;
         }

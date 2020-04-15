@@ -40,11 +40,13 @@ class ChannelCollection
         })->all();
     }
 
-    public function checkNotification($notifiable, $notification)
+    public function validateNotificationFor($notifiable, $notification)
     {
         foreach ($this->channels as &$channel) {
             /** @var Channel $channel */
-            $channel->setNotificationFor($notifiable, $notification);
+            if (empty($channel->getPayload()->getTo())) {
+                $channel->getPayload()->setTo($notifiable, $notification);
+            }
         }
 
         unset($channel);

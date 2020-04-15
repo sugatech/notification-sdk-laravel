@@ -10,7 +10,7 @@ class SmsPayload extends Payload
     /**
      * @var string[]
      */
-    protected $phoneNumbers = [];
+    protected $phoneNumbers;
 
     /**
      * @var string
@@ -46,7 +46,7 @@ class SmsPayload extends Payload
         }
 
         if (is_array($to)) {
-            array_merge($this->phoneNumbers, $to);
+            $this->phoneNumbers = $to;
         } else {
             $this->phoneNumbers[] = $to;
         }

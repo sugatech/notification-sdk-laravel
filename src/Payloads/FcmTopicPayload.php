@@ -10,7 +10,7 @@ class FcmTopicPayload extends Payload
     /**
      * @var string[]
      */
-    protected $topics = [];
+    protected $topics;
 
     /**
      * @var null|array
@@ -54,7 +54,7 @@ class FcmTopicPayload extends Payload
         }
 
         if (is_array($to)) {
-            array_merge($this->topics, $to);
+            $this->topics = $to;
         } else {
             $this->topics[] = $to;
         }

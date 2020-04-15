@@ -36,11 +36,4 @@ abstract class Channel
     {
         return $this->payload;
     }
-
-    public function setNotificationFor($notifiable, $notification)
-    {
-        if (empty($this->payload->getTo())) {
-            $this->payload->setTo($notifiable, $notification);
-        }
-    }
 }
