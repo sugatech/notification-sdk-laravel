@@ -37,8 +37,10 @@ abstract class Channel
         return $this->payload;
     }
 
-    public function routeNotification($notifiable, $notification)
+    public function setNotificationFor($notifiable, $notification)
     {
-        $this->payload->setTo($notifiable, $notification);
+        if (empty($this->payload->getTo())) {
+            $this->payload->setTo($notifiable, $notification);
+        }
     }
 }

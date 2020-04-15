@@ -40,14 +40,13 @@ class ChannelCollection
         })->all();
     }
 
-    public function getTo($notifiable, $notification)
+    public function checkNotification($notifiable, $notification)
     {
-        $collect = new Collection();
-        foreach ($this->channels as $channel) {
-            $channel->routeNotification($notifiable, $notification);
-            $collect->add($channel);
+        foreach ($this->channels as &$channel) {
+            /** @var Channel $channel */
+            $channel->setNotificationFor($notifiable, $notification);
         }
 
-        return $collect;
+        unset($channel);
     }
 }

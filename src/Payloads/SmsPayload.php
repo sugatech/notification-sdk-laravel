@@ -28,6 +28,14 @@ class SmsPayload extends Payload
     }
 
     /**
+     * @return string[]
+     */
+    public function getTo()
+    {
+        return $this->phoneNumbers;
+    }
+
+    /**
      * @param mixed $notifiable
      * @param Notification $notification
      */

@@ -10,7 +10,7 @@ class FcmPayload extends Payload
     /**
      * @var array
      */
-    protected $notifiableIds;
+    protected $notifiableIds = [];
 
     /**
      * @var null|array
@@ -32,6 +32,14 @@ class FcmPayload extends Payload
         $this->notifiableIds = $builder->getNotifiableIds();
         $this->content = $builder->getContent();
         $this->data = $builder->getData();
+    }
+
+    /**
+     * @return array
+     */
+    public function getTo()
+    {
+        return $this->notifiableIds;
     }
 
     /**

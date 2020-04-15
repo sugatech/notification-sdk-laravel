@@ -10,7 +10,7 @@ class MailPayload extends Payload
     /**
      * @var string[]
      */
-    protected $mails;
+    protected $mails = [];
 
     /**
      * @var string
@@ -31,6 +31,14 @@ class MailPayload extends Payload
         $this->mails = $mailBuilder->getMails();
         $this->title = $mailBuilder->getTitle();
         $this->content = $mailBuilder->getContent();
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getTo()
+    {
+        return $this->mails;
     }
 
     /**

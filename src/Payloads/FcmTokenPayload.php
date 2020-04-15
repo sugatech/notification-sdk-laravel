@@ -10,7 +10,7 @@ class FcmTokenPayload extends Payload
     /**
      * @var string[]
      */
-    protected $tokens;
+    protected $tokens = [];
 
     /**
      * @var null|array
@@ -33,6 +33,14 @@ class FcmTokenPayload extends Payload
         $this->tokens = $builder->getTokens();
         $this->content = $builder->getContent();
         $this->data = $builder->getData();
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getTo()
+    {
+        return $this->tokens;
     }
 
     /**

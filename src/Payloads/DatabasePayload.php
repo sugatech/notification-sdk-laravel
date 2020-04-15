@@ -10,7 +10,7 @@ class DatabasePayload extends Payload
     /**
      * @var array
      */
-    protected $notifiableIds;
+    protected $notifiableIds = [];
 
     /**
      * @var array|null
@@ -25,6 +25,14 @@ class DatabasePayload extends Payload
     {
         $this->notifiableIds = $databaseBuilder->getNotifiableIds();
         $this->data = $databaseBuilder->getData();
+    }
+
+    /**
+     * @return array
+     */
+    public function getTo()
+    {
+        return $this->notifiableIds;
     }
 
     /**

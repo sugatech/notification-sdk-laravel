@@ -10,7 +10,7 @@ class FcmTopicPayload extends Payload
     /**
      * @var string[]
      */
-    protected $topics;
+    protected $topics = [];
 
     /**
      * @var null|array
@@ -33,6 +33,14 @@ class FcmTopicPayload extends Payload
         $this->topics = $builder->getTopics();
         $this->content = $builder->getContent();
         $this->data = $builder->getData();
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getTo()
+    {
+        return $this->topics;
     }
 
     /**
