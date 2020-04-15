@@ -33,6 +33,22 @@ class MailPayload extends Payload
     }
 
     /**
+     * @return string[]
+     */
+    public function getTo()
+    {
+        return $this->mails;
+    }
+
+    /**
+     * @param string|string[] $to
+     */
+    public function setTo($to)
+    {
+        $this->mails = is_array($to) ? $to : [$to];
+    }
+
+    /**
      * convert MailPayload to array
      * @inheritDoc
      */

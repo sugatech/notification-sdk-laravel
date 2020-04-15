@@ -28,10 +28,25 @@ class FcmTopicPayload extends Payload
      */
     public function __construct(FcmTopicBuilder $builder)
     {
-
         $this->topics = $builder->getTopics();
         $this->content = $builder->getContent();
         $this->data = $builder->getData();
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getTo()
+    {
+        return $this->topics;
+    }
+
+    /**
+     * @param array|string $to
+     */
+    public function setTo($to)
+    {
+        $this->topics = is_array($to) ? $to : [$to];
     }
 
     /**

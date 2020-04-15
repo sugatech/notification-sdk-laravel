@@ -28,10 +28,25 @@ class FcmTokenPayload extends Payload
      */
     public function __construct(FcmTokenBuilder $builder)
     {
-
         $this->tokens = $builder->getTokens();
         $this->content = $builder->getContent();
         $this->data = $builder->getData();
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getTo()
+    {
+        return $this->tokens;
+    }
+
+    /**
+     * @param array|string $to
+     */
+    public function setTo($to)
+    {
+        $this->tokens = is_array($to) ? $to : [$to];
     }
 
     /**

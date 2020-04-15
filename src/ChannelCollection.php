@@ -2,13 +2,15 @@
 
 namespace Notification\SDK;
 
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Collection;
 use Notification\SDK\Channels\Channel;
 
-class ChannelCollection
+class ChannelCollection implements Arrayable
 {
     /**
-     * @var Collection
+     * @var Channel[]|Collection
      */
     private $channels;
 
@@ -38,5 +40,16 @@ class ChannelCollection
         return $this->channels->mapWithKeys(function (Channel $channel) {
             return [$channel->getKey() => $channel->getPayload()->toArray()];
         })->all();
+    }
+
+    /**
+     * @param mixed $notifiable
+     * @param Notification $notification
+     */
+    public function routeNotificationFor($notifiable, $notification)
+    {
+        foreach ($this->channels as $channel) {
+            $channel->routeNotificationFor($notifiable, $notification);
+        }
     }
 }
