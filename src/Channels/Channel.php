@@ -36,4 +36,6 @@ abstract class Channel
     {
         return $this->payload;
     }
+
+    abstract public function setNotificationFor($notifiable, $notification);
 }
