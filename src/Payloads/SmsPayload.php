@@ -27,6 +27,22 @@ class SmsPayload extends Payload
     }
 
     /**
+     * @return string[]
+     */
+    public function getTo()
+    {
+        return $this->phoneNumbers;
+    }
+
+    /**
+     * @param string|string[] $to
+     */
+    public function setTo($to)
+    {
+        $this->phoneNumbers = is_array($to) ? $to : [$to];
+    }
+
+    /**
      * convert SmsPayload to array
      * @inheritDoc
      */

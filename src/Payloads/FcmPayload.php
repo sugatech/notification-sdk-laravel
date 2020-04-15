@@ -34,6 +34,22 @@ class FcmPayload extends Payload
     }
 
     /**
+     * @return array
+     */
+    public function getTo()
+    {
+        return $this->notifiableIds;
+    }
+
+    /**
+     * @param array|string $to
+     */
+    public function setTo($to)
+    {
+        $this->notifiableIds = is_array($to) ? $to : [$to];
+    }
+
+    /**
      * convert FcmPayload to array.
      *
      * @return array

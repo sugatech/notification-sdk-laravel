@@ -27,6 +27,22 @@ class DatabasePayload extends Payload
     }
 
     /**
+     * @return array
+     */
+    public function getTo()
+    {
+        return $this->notifiableIds;
+    }
+
+    /**
+     * @param array|string $to
+     */
+    public function setTo($to)
+    {
+        $this->notifiableIds = is_array($to) ? $to : [$to];
+    }
+
+    /**
      * @inheritDoc
      */
     public function toArray()
