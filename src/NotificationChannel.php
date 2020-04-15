@@ -14,8 +14,7 @@ class NotificationChannel
     {
         /** @var ChannelCollection $channels */
         $channels = $notification->toNotificationService($notifiable);
-
-		$channels->validateNotificationFor($notifiable, $notification);
+		$channels->routeNotificationFor($notifiable, $notification);
 
         $background = method_exists($notification, 'isBackground') 
             ? $notification->isBackground()

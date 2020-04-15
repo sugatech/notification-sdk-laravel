@@ -2,11 +2,12 @@
 
 namespace Notification\SDK;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Collection;
 use Notification\SDK\Channels\Channel;
 
-class ChannelCollection
+class ChannelCollection implements Arrayable
 {
     /**
      * @var Channel[]|Collection
@@ -45,7 +46,7 @@ class ChannelCollection
      * @param mixed $notifiable
      * @param Notification $notification
      */
-    public function validateNotificationFor($notifiable, $notification)
+    public function routeNotificationFor($notifiable, $notification)
     {
         foreach ($this->channels as $channel) {
             if (empty($channel->getPayload()->getTo())) {
