@@ -51,11 +51,7 @@ class MailPayload extends Payload
             return;
         }
 
-        if (is_array($to)) {
-            $this->mails = $to;
-        } else {
-            $this->mails[] = $to;
-        }
+        $this->mails = is_array($to) ? $to : [$to];
     }
 
     /**

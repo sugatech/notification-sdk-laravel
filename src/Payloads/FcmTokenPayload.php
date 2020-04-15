@@ -53,11 +53,7 @@ class FcmTokenPayload extends Payload
             return;
         }
 
-        if (is_array($to)) {
-            $this->tokens= $to;
-        } else {
-            $this->tokens[] = $to;
-        }
+        $this->tokens = is_array($to) ? $to : [$to];
     }
 
     /**

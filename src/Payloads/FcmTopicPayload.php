@@ -53,11 +53,7 @@ class FcmTopicPayload extends Payload
             return;
         }
 
-        if (is_array($to)) {
-            $this->topics = $to;
-        } else {
-            $this->topics[] = $to;
-        }
+        $this->topics = is_array($to) ? $to : [$to];
     }
 
     /**

@@ -45,11 +45,7 @@ class SmsPayload extends Payload
             return;
         }
 
-        if (is_array($to)) {
-            $this->phoneNumbers = $to;
-        } else {
-            $this->phoneNumbers[] = $to;
-        }
+        $this->phoneNumbers = is_array($to) ? $to : [$to];
     }
 
     /**

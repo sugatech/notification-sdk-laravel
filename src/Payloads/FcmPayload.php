@@ -52,11 +52,7 @@ class FcmPayload extends Payload
             return;
         }
 
-        if (is_array($to)) {
-            $this->notifiableIds = $to;
-        } else {
-            $this->notifiableIds[] = $to;
-        }
+        $this->notifiableIds = is_array($to) ? $to : [$to];
     }
 
     /**
