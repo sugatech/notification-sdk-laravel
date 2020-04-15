@@ -2,7 +2,6 @@
 
 namespace Notification\SDK\Payloads;
 
-use Illuminate\Notifications\Notification;
 use Notification\SDK\Builders\DatabaseBuilder;
 
 class DatabasePayload extends Payload
@@ -36,15 +35,10 @@ class DatabasePayload extends Payload
     }
 
     /**
-     * @param mixed $notifiable
-     * @param Notification $notification
+     * @param array|string $to
      */
-    public function setTo($notifiable, $notification)
+    public function setTo($to)
     {
-        if (! $to = $notifiable->routeNotificationFor('database', $notification)) {
-            return;
-        }
-
         $this->notifiableIds = is_array($to) ? $to : [$to];
     }
 

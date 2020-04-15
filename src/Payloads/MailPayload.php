@@ -42,15 +42,10 @@ class MailPayload extends Payload
     }
 
     /**
-     * @param mixed $notifiable
-     * @param Notification $notification
+     * @param string|string[] $to
      */
-    public function setTo($notifiable, $notification)
+    public function setTo($to)
     {
-        if (! $to = $notifiable->routeNotificationFor('mail', $notification)) {
-            return;
-        }
-
         $this->mails = is_array($to) ? $to : [$to];
     }
 

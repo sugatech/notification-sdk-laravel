@@ -43,15 +43,10 @@ class FcmPayload extends Payload
     }
 
     /**
-     * @param mixed $notifiable
-     * @param Notification $notification
+     * @param array|string $to
      */
-    public function setTo($notifiable, $notification)
+    public function setTo($to)
     {
-        if (! $to = $notifiable->routeNotificationFor('fcm', $notification)) {
-            return;
-        }
-
         $this->notifiableIds = is_array($to) ? $to : [$to];
     }
 

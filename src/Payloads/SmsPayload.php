@@ -2,7 +2,6 @@
 
 namespace Notification\SDK\Payloads;
 
-use Illuminate\Notifications\Notification;
 use Notification\SDK\Builders\SmsBuilder;
 
 class SmsPayload extends Payload
@@ -36,15 +35,10 @@ class SmsPayload extends Payload
     }
 
     /**
-     * @param mixed $notifiable
-     * @param Notification $notification
+     * @param string|string[] $to
      */
-    public function setTo($notifiable, $notification)
+    public function setTo($to)
     {
-        if (! $to = $notifiable->routeNotificationFor('sms', $notification)) {
-            return;
-        }
-
         $this->phoneNumbers = is_array($to) ? $to : [$to];
     }
 
