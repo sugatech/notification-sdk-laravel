@@ -82,6 +82,17 @@ class NotificationClient
 
     /**
      * @param int $messageId
+     * @return array
+     */
+    public function getMessage($messageId)
+    {
+        return $this->request()
+            ->get($this->getUrl('/database/messages/'.$messageId))
+            ->json();
+    }
+
+    /**
+     * @param int $messageId
      * @return bool
      */
     public function markAsRead($messageId)
