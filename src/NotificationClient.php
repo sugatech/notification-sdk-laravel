@@ -68,17 +68,16 @@ class NotificationClient
 
     /**
      * @param array $params
-     * @return object[]
+     * @return array[]
      */
     public function getMessages($params = [])
     {
         return $this->request()
-            ->asJson()
             ->get(
                 $this->getUrl('/database/messages'),
                 $params
             )
-            ->body();
+            ->json();
     }
 
     /**
