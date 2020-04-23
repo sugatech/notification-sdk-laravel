@@ -115,6 +115,17 @@ class NotificationClient
     }
 
     /**
+     * @param int $notifiableId
+     * @return int
+     */
+    public function countUnreadMessages($notifiableId)
+    {
+        return $this->request()
+            ->get($this->getUrl('/database/messages/'.$notifiableId.'/count'))
+            ->json();
+    }
+
+    /**
      * @param string $notifiableId
      * @param string $token
      * @param string $platform
