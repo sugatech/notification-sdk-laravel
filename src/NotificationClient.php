@@ -98,9 +98,34 @@ class NotificationClient
     public function markAsRead($messageId)
     {
         return $this->request()
-            ->asJson()
             ->post($this->getUrl('/database/messages/'.$messageId.'/read'))
             ->isSuccess();
+    }
+
+    /**
+     * @param int $messageId
+     * @return bool
+     */
+    public function markAsUnread($messageId)
+    {
+        return $this->request()
+            ->post($this->getUrl('/database/messages/'.$messageId.'/unread'))
+            ->isSuccess();
+    }
+
+    /**
+     * @param int $notifiableId
+     * @return int
+     */
+    public function countUnreadMessages($notifiableId)
+    {
+        return $this->request()
+            ->get($this->getUrl('/database/messages/unread/count'),
+                [
+                    'notifiable_id' => $notifiableId,
+                ]
+            )
+            ->json();
     }
 
     /**
