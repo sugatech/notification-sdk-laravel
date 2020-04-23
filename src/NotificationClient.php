@@ -120,7 +120,11 @@ class NotificationClient
     public function countUnreadMessages($notifiableId)
     {
         return $this->request()
-            ->get($this->getUrl('/database/messages/'.$notifiableId.'/count'))
+            ->get($this->getUrl('/database/messages/unread/count'),
+                [
+                    'notifiable_id' => $notifiableId,
+                ]
+            )
             ->json();
     }
 
