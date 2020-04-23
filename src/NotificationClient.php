@@ -98,7 +98,6 @@ class NotificationClient
     public function markAsRead($messageId)
     {
         return $this->request()
-            ->asJson()
             ->post($this->getUrl('/database/messages/'.$messageId.'/read'))
             ->isSuccess();
     }
