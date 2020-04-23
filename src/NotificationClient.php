@@ -104,6 +104,17 @@ class NotificationClient
     }
 
     /**
+     * @param int $messageId
+     * @return bool
+     */
+    public function markAsUnread($messageId)
+    {
+        return $this->request()
+            ->post($this->getUrl('/database/messages/'.$messageId.'/unread'))
+            ->isSuccess();
+    }
+
+    /**
      * @param string $notifiableId
      * @param string $token
      * @param string $platform
