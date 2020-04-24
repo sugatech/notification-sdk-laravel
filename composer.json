@@ -1,6 +1,6 @@
 {
     "name": "sugatech/notification-sdk-laravel",
-    "version": "20.3.2",
+    "version": "20.3.3",
     "type": "library",
     "description": "Notification Service SDK for Laravel and Lumen",
     "license": "MIT",
