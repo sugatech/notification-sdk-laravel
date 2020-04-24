@@ -114,7 +114,7 @@ class NotificationClient
     }
 
     /**
-     * @param int $notifiableId
+     * @param string $notifiableId
      * @return int
      */
     public function countUnreadMessages($notifiableId)
