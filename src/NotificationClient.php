@@ -67,63 +67,75 @@ class NotificationClient
     }
 
     /**
+     * @param string $notifiableId
      * @param array $params
      * @return array[]
      */
-    public function getMessages($params = [])
+    public function getMessages($notifiableId, $params = [])
     {
         return $this->request()
             ->get(
-                $this->getUrl('/database/messages'),
+                $this->getUrl('/database/'.$notifiableId.'/messages'),
                 $params
             )
             ->json();
     }
 
     /**
+     * @param string $notifiableId
      * @param int $messageId
      * @return array
      */
-    public function getMessage($messageId)
+    public function getMessage($notifiableId, $messageId)
     {
         return $this->request()
-            ->get($this->getUrl('/database/messages/'.$messageId))
+            ->get($this->getUrl('/database/'.$notifiableId.'/messages/'.$messageId))
             ->json();
     }
 
     /**
+     * @param string $notifiableId
      * @param int $messageId
      * @return bool
      */
-    public function markAsRead($messageId)
+    public function markAsRead($notifiableId, $messageId)
     {
         return $this->request()
-            ->post($this->getUrl('/database/messages/'.$messageId.'/read'))
+            ->post($this->getUrl('/database/'.$notifiableId.'/messages/'.$messageId.'/read'))
             ->isSuccess();
     }
 
     /**
+     * @param string $notifiableId
      * @param int $messageId
      * @return bool
      */
-    public function markAsUnread($messageId)
+    public function markAsUnread($notifiableId, $messageId)
     {
         return $this->request()
-            ->post($this->getUrl('/database/messages/'.$messageId.'/unread'))
+            ->post($this->getUrl('/database/'.$notifiableId.'/messages/'.$messageId.'/unread'))
             ->isSuccess();
     }
 
     /**
-     * @param int $notifiableId
+     * @param string $notifiableId
+     * @return bool
+     */
+    public function markAllRead($notifiableId)
+    {
+        return $this->request()
+            ->post($this->getUrl('/database/'.$notifiableId.'/messages/read/all'))
+            ->isSuccess();
+    }
+
+    /**
+     * @param string $notifiableId
      * @return int
      */
     public function countUnreadMessages($notifiableId)
     {
         return $this->request()
-            ->get($this->getUrl('/database/messages/unread/count'),
-                [
-                    'notifiable_id' => $notifiableId,
-                ]
+            ->get($this->getUrl('/database/'.$notifiableId.'/messages/unread/count')
             )
             ->json();
     }
