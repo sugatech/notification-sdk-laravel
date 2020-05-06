@@ -2,15 +2,17 @@
 
 namespace Notification\SDK;
 
+use PassportClientCredentials\OAuthClient;
 use Zttp\PendingZttpRequest;
 use Zttp\Zttp;
+use Zttp\ZttpResponse;
 
 class NotificationClient
 {
     /**
-     * @var string
+     * @var OAuthClient
      */
-    private $accessToken;
+    private $oauthClient;
 
     /**
      * @var string
@@ -20,23 +22,35 @@ class NotificationClient
     /**
      * NotificationClient constructor.
      * @param string $apiUrl
-     * @param string $accessToken
      */
-    public function __construct($apiUrl, $accessToken)
+    public function __construct($apiUrl)
     {
-        $this->accessToken = $accessToken;
+        $this->oauthClient = new OAuthClient(
+            config('notification.oauth.url'),
+            config('notification.oauth.client_id'),
+            config('notification.oauth.client_secret')
+        );
         $this->apiUrl = $apiUrl;
     }
 
     /**
-     * @return PendingZttpRequest
+     * @param callable $handler
+     * @return ZttpResponse
      */
-    private function request()
+    private function request($handler)
     {
-        return Zttp::withHeaders([
-            'Authorization' => 'Bearer ' . $this->accessToken,
+        $request = Zttp::withHeaders([
+            'Authorization' => 'Bearer ' . $this->oauthClient->getAccessToken(),
         ])
             ->withoutVerifying();
+
+        $response = $handler($request);
+
+        if ($response->status() == 401) {
+            $this->oauthClient->getAccessToken(true);
+        }
+
+        return $response;
     }
 
     /**
@@ -55,14 +69,16 @@ class NotificationClient
      */
     public function send($channels, $background = true)
     {
-        return $this->request()
-            ->asJson()
-            ->post(
-                $this->getUrl('/message/send'),
-                [
-                    'channels' => $channels->toArray(),
-                    'background' => $background,
-                ])
+        $params = [
+            'channels' => $channels->toArray(),
+            'background' => $background,
+        ];
+
+        return $this->request(function (PendingZttpRequest $request) use ($params) {
+            return $request->asJson()
+                ->post(
+                    $this->getUrl('/message/send'), $params);
+        })
             ->isSuccess();
     }
 
@@ -73,11 +89,12 @@ class NotificationClient
      */
     public function getMessages($notifiableId, $params = [])
     {
-        return $this->request()
-            ->get(
+        return $this->request(function (PendingZttpRequest $request) use ($notifiableId, $params) {
+            return $request->get(
                 $this->getUrl('/database/'.$notifiableId.'/messages'),
                 $params
-            )
+            );
+        })
             ->json();
     }
 
@@ -88,8 +105,9 @@ class NotificationClient
      */
     public function getMessage($notifiableId, $messageId)
     {
-        return $this->request()
-            ->get($this->getUrl('/database/'.$notifiableId.'/messages/'.$messageId))
+        return $this->request(function (PendingZttpRequest $request) use ($notifiableId, $messageId) {
+            return $request->get($this->getUrl('/database/'.$notifiableId.'/messages/'.$messageId));
+        })
             ->json();
     }
 
@@ -100,8 +118,9 @@ class NotificationClient
      */
     public function markAsRead($notifiableId, $messageId)
     {
-        return $this->request()
-            ->post($this->getUrl('/database/'.$notifiableId.'/messages/'.$messageId.'/read'))
+        return $this->request(function (PendingZttpRequest $request) use ($notifiableId, $messageId) {
+            return $request->post($this->getUrl('/database/'.$notifiableId.'/messages/'.$messageId.'/read'));
+        })
             ->isSuccess();
     }
 
@@ -112,8 +131,9 @@ class NotificationClient
      */
     public function markAsUnread($notifiableId, $messageId)
     {
-        return $this->request()
-            ->post($this->getUrl('/database/'.$notifiableId.'/messages/'.$messageId.'/unread'))
+        return $this->request(function (PendingZttpRequest $request) use ($notifiableId, $messageId) {
+            return $request->post($this->getUrl('/database/'.$notifiableId.'/messages/'.$messageId.'/unread'));
+        })
             ->isSuccess();
     }
 
@@ -123,8 +143,9 @@ class NotificationClient
      */
     public function markAllRead($notifiableId)
     {
-        return $this->request()
-            ->post($this->getUrl('/database/'.$notifiableId.'/messages/read/all'))
+        return $this->request(function (PendingZttpRequest $request) use ($notifiableId) {
+            return $request->post($this->getUrl('/database/'.$notifiableId.'/messages/read/all'));
+        })
             ->isSuccess();
     }
 
@@ -134,9 +155,9 @@ class NotificationClient
      */
     public function countUnreadMessages($notifiableId)
     {
-        return $this->request()
-            ->get($this->getUrl('/database/'.$notifiableId.'/messages/unread/count')
-            )
+        return $this->request(function (PendingZttpRequest $request) use ($notifiableId) {
+            return $request->get($this->getUrl('/database/'.$notifiableId.'/messages/unread/count'));
+        })
             ->json();
     }
 
@@ -149,17 +170,17 @@ class NotificationClient
      */
     public function registerFcmToken($notifiableId, $token, $platform, $topics = null)
     {
-        return $this->request()
-            ->asJson()
-            ->post(
-                $this->getUrl('/fcm/token/register'),
-                [
-                    'notifiable_id' => $notifiableId,
-                    'token' => $token,
-                    'platform' => $platform,
-                    'topics' => $topics,
-                ]
-            )
+        $params = [
+            'notifiable_id' => $notifiableId,
+            'token' => $token,
+            'platform' => $platform,
+            'topics' => $topics,
+        ];
+
+        return $this->request(function (PendingZttpRequest $request) use ($params) {
+            return $request->asJson()
+                ->post($this->getUrl('/fcm/token/register'), $params);
+        })
             ->isSuccess();
     }
 
@@ -171,16 +192,17 @@ class NotificationClient
      */
     public function unregisterFcmToken($notifiableId, $token, $topics = null)
     {
-        return $this->request()
-            ->asJson()
-            ->post(
-                $this->getUrl('/fcm/token/unregister'),
-                [
-                    'notifiable_id' => $notifiableId,
-                    'token' => $token,
-                    'topics' => $topics,
-                ]
-            )
+        $params = [
+            'notifiable_id' => $notifiableId,
+            'token' => $token,
+            'topics' => $topics,
+        ];
+
+        return $this->request(function (PendingZttpRequest $request) use ($params) {
+            return $request->asJson()
+                ->post(
+                    $this->getUrl('/fcm/token/unregister'), $params);
+        })
             ->isSuccess();
     }
 
@@ -191,15 +213,15 @@ class NotificationClient
      */
     public function subscribeTopic($topics, $token)
     {
-        return $this->request()
-            ->asJson()
-            ->post(
-                $this->getUrl('/fcm/topics/subscribe'),
-                [
-                    'topics' => $topics,
-                    'token' => $token
-                ]
-            )
+        $params = [
+            'topics' => $topics,
+            'token' => $token
+        ];
+
+        return $this->request(function (PendingZttpRequest $request) use ($params) {
+            return $request->asJson()
+                ->post($this->getUrl('/fcm/topics/subscribe'), $params);
+        })
             ->isSuccess();
     }
 
@@ -210,15 +232,15 @@ class NotificationClient
      */
     public function unsubscribeTopic($topics, $token)
     {
-        return $this->request()
-            ->asJson()
-            ->post(
-                $this->getUrl('/fcm/topics/unsubscribe'),
-                [
-                    'topics' => $topics,
-                    'tokens' => $token,
-                ]
-            )
+        $params = [
+            'topics' => $topics,
+            'tokens' => $token,
+        ];
+
+        return $this->request(function (PendingZttpRequest $request) use ($params) {
+            return $request->asJson()
+                ->post($this->getUrl('/fcm/topics/unsubscribe'), $params);
+        })
             ->isSuccess();
     }
 }

@@ -2,9 +2,11 @@
 
 namespace Notification\SDK;
 
+use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Notifications\ChannelManager;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Lumen\Application as LumenApplication;
 
 class NotificationServiceProvider extends ServiceProvider
 {
@@ -14,14 +16,22 @@ class NotificationServiceProvider extends ServiceProvider
             $options = $app['config']->get('notification');
 
             if (!isset($options['api_url'])) {
-                throw new \InvalidArgumentException('Not found api_urL config');
+                throw new \InvalidArgumentException('Not found api_url config');
             }
 
-            if (!isset($options['access_token'])) {
-                throw new \InvalidArgumentException('Not found access_token config');
+            if (!isset($options['oauth']['url'])) {
+                throw new \InvalidArgumentException('Not found oauth.url config');
             }
 
-            return new NotificationClient($options['api_url'], $options['access_token']);
+            if (!isset($options['oauth']['client_id'])) {
+                throw new \InvalidArgumentException('Not found oauth.client_id config');
+            }
+
+            if (!isset($options['oauth']['client_secret'])) {
+                throw new \InvalidArgumentException('Not found oauth.client_secret config');
+            }
+
+            return new NotificationClient($options['api_url']);
         });
 
         Notification::resolved(function (ChannelManager $service) {
