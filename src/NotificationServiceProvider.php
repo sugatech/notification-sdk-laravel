@@ -12,6 +12,8 @@ class NotificationServiceProvider extends ServiceProvider
 {
     public function register()
     {
+        $this->mergeConfigFrom($this->configPath(), 'notification');
+
         $this->app->singleton('notification.client', function ($app) {
             $options = $app['config']->get('notification');
 
