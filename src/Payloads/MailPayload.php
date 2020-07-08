@@ -9,7 +9,7 @@ class MailPayload extends Payload
     /**
      * @var string[]
      */
-    protected $mails;
+    protected $emails;
 
     /**
      * @var string
@@ -27,7 +27,7 @@ class MailPayload extends Payload
      */
     public function __construct($mailBuilder)
     {
-        $this->mails = $mailBuilder->getMails();
+        $this->emails = $mailBuilder->getEmails();
         $this->title = $mailBuilder->getTitle();
         $this->content = $mailBuilder->getContent();
     }
@@ -37,7 +37,7 @@ class MailPayload extends Payload
      */
     public function getTo()
     {
-        return $this->mails;
+        return $this->emails;
     }
 
     /**
@@ -45,7 +45,7 @@ class MailPayload extends Payload
      */
     public function setTo($to)
     {
-        $this->mails = is_array($to) ? $to : [$to];
+        $this->emails = is_array($to) ? $to : [$to];
     }
 
     /**
@@ -55,7 +55,7 @@ class MailPayload extends Payload
     public function toArray()
     {
         return [
-            'mails' => $this->mails,
+            'emails' => $this->emails,
             'title' => $this->title,
             'content' => $this->content,
         ];
