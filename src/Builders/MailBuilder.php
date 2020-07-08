@@ -10,7 +10,7 @@ class MailBuilder
     /**
      * @var string[]
      */
-    protected $mails = [];
+    protected $emails = [];
 
     /**
      * @var string
@@ -23,22 +23,22 @@ class MailBuilder
     protected $content;
 
     /**
-     * @param array $mails
+     * @param array $emails
      * @return $this
      */
-    public function setMails($mails)
+    public function setEmails($emails)
     {
-        $this->mails = $mails;
+        $this->emails = $emails;
         return $this;
     }
 
     /**
-     * @param string $mail
+     * @param string $email
      * @return $this
      */
-    public function addMail($mail)
+    public function addEmail($email)
     {
-        $this->mails[] = $mail;
+        $this->emails[] = $email;
         return $this;
     }
 
@@ -65,9 +65,9 @@ class MailBuilder
     /**
      * @return string[]
      */
-    public function getMails()
+    public function getEmails()
     {
-        return $this->mails;
+        return $this->emails;
     }
 
     /**
