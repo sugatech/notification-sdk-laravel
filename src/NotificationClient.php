@@ -243,4 +243,22 @@ class NotificationClient
         })
             ->isSuccess();
     }
+
+    /**
+     * @param string $notifiableId
+     * @param array $params
+     * @return array|null
+     */
+    public function getTokens($notifiableId, $params = [])
+    {
+        $params[] = ['notifiable_id' => $notifiableId];
+
+        return $this->request(function (PendingZttpRequest $request) use ($params) {
+            return $request->get(
+                $this->getUrl('/fcm'),
+                $params
+            );
+        })
+            ->json();
+    }
 }
