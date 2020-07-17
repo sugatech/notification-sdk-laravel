@@ -246,7 +246,7 @@ class NotificationClient
 
     /**
      * @param string $notifiableId
-     * @return array[]|null
+     * @return array
      */
     public function getTokens($notifiableId)
     {
