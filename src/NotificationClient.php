@@ -91,7 +91,7 @@ class NotificationClient
     {
         return $this->request(function (PendingZttpRequest $request) use ($notifiableId, $params) {
             return $request->get(
-                $this->getUrl('/database/'.$notifiableId.'/messages'),
+                $this->getUrl('/database/' . $notifiableId . '/messages'),
                 $params
             );
         })
@@ -106,7 +106,7 @@ class NotificationClient
     public function getMessage($notifiableId, $messageId)
     {
         return $this->request(function (PendingZttpRequest $request) use ($notifiableId, $messageId) {
-            return $request->get($this->getUrl('/database/'.$notifiableId.'/messages/'.$messageId));
+            return $request->get($this->getUrl('/database/' . $notifiableId . '/messages/' . $messageId));
         })
             ->json();
     }
@@ -119,7 +119,7 @@ class NotificationClient
     public function markAsRead($notifiableId, $messageId)
     {
         return $this->request(function (PendingZttpRequest $request) use ($notifiableId, $messageId) {
-            return $request->post($this->getUrl('/database/'.$notifiableId.'/messages/'.$messageId.'/read'));
+            return $request->post($this->getUrl('/database/' . $notifiableId . '/messages/' . $messageId . '/read'));
         })
             ->isSuccess();
     }
@@ -132,7 +132,7 @@ class NotificationClient
     public function markAsUnread($notifiableId, $messageId)
     {
         return $this->request(function (PendingZttpRequest $request) use ($notifiableId, $messageId) {
-            return $request->post($this->getUrl('/database/'.$notifiableId.'/messages/'.$messageId.'/unread'));
+            return $request->post($this->getUrl('/database/' . $notifiableId . '/messages/' . $messageId . '/unread'));
         })
             ->isSuccess();
     }
@@ -144,7 +144,7 @@ class NotificationClient
     public function markAllRead($notifiableId)
     {
         return $this->request(function (PendingZttpRequest $request) use ($notifiableId) {
-            return $request->post($this->getUrl('/database/'.$notifiableId.'/messages/read/all'));
+            return $request->post($this->getUrl('/database/' . $notifiableId . '/messages/read/all'));
         })
             ->isSuccess();
     }
@@ -156,7 +156,7 @@ class NotificationClient
     public function countUnreadMessages($notifiableId)
     {
         return $this->request(function (PendingZttpRequest $request) use ($notifiableId) {
-            return $request->get($this->getUrl('/database/'.$notifiableId.'/messages/unread/count'));
+            return $request->get($this->getUrl('/database/' . $notifiableId . '/messages/unread/count'));
         })
             ->json();
     }
@@ -242,5 +242,17 @@ class NotificationClient
                 ->post($this->getUrl('/fcm/topics/unsubscribe'), $params);
         })
             ->isSuccess();
+    }
+
+    /**
+     * @param string $notifiableId
+     * @return array
+     */
+    public function getTokens($notifiableId)
+    {
+        return $this->request(function (PendingZttpRequest $request) use ($notifiableId) {
+            return $request->get($this->getUrl('/fcm/' . $notifiableId));
+        })
+            ->json();
     }
 }
