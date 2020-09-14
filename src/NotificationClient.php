@@ -2,10 +2,10 @@
 
 namespace Notification\SDK;
 
+use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Http\Client\Response;
+use Illuminate\Support\Facades\Http;
 use OAuth2ClientCredentials\OAuthClient;
-use Zttp\PendingZttpRequest;
-use Zttp\Zttp;
-use Zttp\ZttpResponse;
 
 class NotificationClient
 {
@@ -35,11 +35,11 @@ class NotificationClient
 
     /**
      * @param callable $handler
-     * @return ZttpResponse
+     * @return Response
      */
     private function request($handler)
     {
-        $request = Zttp::withHeaders([
+        $request = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->oauthClient->getAccessToken(),
         ])
             ->withoutVerifying();
@@ -74,12 +74,12 @@ class NotificationClient
             'background' => $background,
         ];
 
-        return $this->request(function (PendingZttpRequest $request) use ($params) {
+        return $this->request(function (PendingRequest $request) use ($params) {
             return $request->asJson()
                 ->post(
                     $this->getUrl('/message/send'), $params);
         })
-            ->isSuccess();
+            ->successful();
     }
 
     /**
@@ -89,7 +89,7 @@ class NotificationClient
      */
     public function getMessages($notifiableId, $params = [])
     {
-        return $this->request(function (PendingZttpRequest $request) use ($notifiableId, $params) {
+        return $this->request(function (PendingRequest $request) use ($notifiableId, $params) {
             return $request->get(
                 $this->getUrl('/database/' . $notifiableId . '/messages'),
                 $params
@@ -105,7 +105,7 @@ class NotificationClient
      */
     public function getMessage($notifiableId, $messageId)
     {
-        return $this->request(function (PendingZttpRequest $request) use ($notifiableId, $messageId) {
+        return $this->request(function (PendingRequest $request) use ($notifiableId, $messageId) {
             return $request->get($this->getUrl('/database/' . $notifiableId . '/messages/' . $messageId));
         })
             ->json();
@@ -118,10 +118,10 @@ class NotificationClient
      */
     public function markAsRead($notifiableId, $messageId)
     {
-        return $this->request(function (PendingZttpRequest $request) use ($notifiableId, $messageId) {
+        return $this->request(function (PendingRequest $request) use ($notifiableId, $messageId) {
             return $request->post($this->getUrl('/database/' . $notifiableId . '/messages/' . $messageId . '/read'));
         })
-            ->isSuccess();
+            ->successful();
     }
 
     /**
@@ -131,10 +131,10 @@ class NotificationClient
      */
     public function markAsUnread($notifiableId, $messageId)
     {
-        return $this->request(function (PendingZttpRequest $request) use ($notifiableId, $messageId) {
+        return $this->request(function (PendingRequest $request) use ($notifiableId, $messageId) {
             return $request->post($this->getUrl('/database/' . $notifiableId . '/messages/' . $messageId . '/unread'));
         })
-            ->isSuccess();
+            ->successful();
     }
 
     /**
@@ -143,10 +143,10 @@ class NotificationClient
      */
     public function markAllRead($notifiableId)
     {
-        return $this->request(function (PendingZttpRequest $request) use ($notifiableId) {
+        return $this->request(function (PendingRequest $request) use ($notifiableId) {
             return $request->post($this->getUrl('/database/' . $notifiableId . '/messages/read/all'));
         })
-            ->isSuccess();
+            ->successful();
     }
 
     /**
@@ -155,7 +155,7 @@ class NotificationClient
      */
     public function countUnreadMessages($notifiableId)
     {
-        return $this->request(function (PendingZttpRequest $request) use ($notifiableId) {
+        return $this->request(function (PendingRequest $request) use ($notifiableId) {
             return $request->get($this->getUrl('/database/' . $notifiableId . '/messages/unread/count'));
         })
             ->json();
@@ -177,11 +177,11 @@ class NotificationClient
             'topics' => $topics,
         ];
 
-        return $this->request(function (PendingZttpRequest $request) use ($params) {
+        return $this->request(function (PendingRequest $request) use ($params) {
             return $request->asJson()
                 ->post($this->getUrl('/fcm/token/register'), $params);
         })
-            ->isSuccess();
+            ->successful();
     }
 
     /**
@@ -198,12 +198,12 @@ class NotificationClient
             'topics' => $topics,
         ];
 
-        return $this->request(function (PendingZttpRequest $request) use ($params) {
+        return $this->request(function (PendingRequest $request) use ($params) {
             return $request->asJson()
                 ->post(
                     $this->getUrl('/fcm/token/unregister'), $params);
         })
-            ->isSuccess();
+            ->successful();
     }
 
     /**
@@ -218,11 +218,11 @@ class NotificationClient
             'token' => $token
         ];
 
-        return $this->request(function (PendingZttpRequest $request) use ($params) {
+        return $this->request(function (PendingRequest $request) use ($params) {
             return $request->asJson()
                 ->post($this->getUrl('/fcm/topics/subscribe'), $params);
         })
-            ->isSuccess();
+            ->successful();
     }
 
     /**
@@ -237,11 +237,11 @@ class NotificationClient
             'tokens' => $token,
         ];
 
-        return $this->request(function (PendingZttpRequest $request) use ($params) {
+        return $this->request(function (PendingRequest $request) use ($params) {
             return $request->asJson()
                 ->post($this->getUrl('/fcm/topics/unsubscribe'), $params);
         })
-            ->isSuccess();
+            ->successful();
     }
 
     /**
@@ -250,7 +250,7 @@ class NotificationClient
      */
     public function getTokens($notifiableId)
     {
-        return $this->request(function (PendingZttpRequest $request) use ($notifiableId) {
+        return $this->request(function (PendingRequest $request) use ($notifiableId) {
             return $request->get($this->getUrl('/fcm/' . $notifiableId));
         })
             ->json();
