@@ -37,8 +37,11 @@ class ChannelCollection implements Arrayable
      */
     public function toArray()
     {
-        return $this->channels->mapWithKeys(function (Channel $channel) {
-            return [$channel->getKey() => $channel->getPayload()->toArray()];
+        return $this->channels->map(function (Channel $channel) {
+            return [
+                'key' => $channel->getKey(),
+                'body' => $channel->getPayload()->toArray(),
+            ];
         })->all();
     }
 
