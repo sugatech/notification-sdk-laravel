@@ -36,6 +36,7 @@ class NotificationClient
     /**
      * @param callable $handler
      * @return Response
+     * @throws \Illuminate\Http\Client\RequestException
      */
     private function request($handler)
     {
@@ -66,6 +67,7 @@ class NotificationClient
      * @param ChannelCollection $channels
      * @param bool $background
      * @return bool
+     * @throws \Illuminate\Http\Client\RequestException
      */
     public function send($channels, $background = true)
     {
@@ -86,6 +88,7 @@ class NotificationClient
      * @param string $notifiableId
      * @param array $params
      * @return array[]
+     * @throws \Illuminate\Http\Client\RequestException
      */
     public function getMessages($notifiableId, $params = [])
     {
@@ -102,6 +105,7 @@ class NotificationClient
      * @param string $notifiableId
      * @param int $messageId
      * @return array
+     * @throws \Illuminate\Http\Client\RequestException
      */
     public function getMessage($notifiableId, $messageId)
     {
@@ -115,6 +119,7 @@ class NotificationClient
      * @param string $notifiableId
      * @param int $messageId
      * @return bool
+     * @throws \Illuminate\Http\Client\RequestException
      */
     public function markAsRead($notifiableId, $messageId)
     {
@@ -128,6 +133,7 @@ class NotificationClient
      * @param string $notifiableId
      * @param int $messageId
      * @return bool
+     * @throws \Illuminate\Http\Client\RequestException
      */
     public function markAsUnread($notifiableId, $messageId)
     {
@@ -140,6 +146,7 @@ class NotificationClient
     /**
      * @param string $notifiableId
      * @return bool
+     * @throws \Illuminate\Http\Client\RequestException
      */
     public function markAllRead($notifiableId)
     {
@@ -152,6 +159,7 @@ class NotificationClient
     /**
      * @param string $notifiableId
      * @return int
+     * @throws \Illuminate\Http\Client\RequestException
      */
     public function countUnreadMessages($notifiableId)
     {
@@ -167,6 +175,7 @@ class NotificationClient
      * @param string $platform
      * @param null|string[] $topics
      * @return bool
+     * @throws \Illuminate\Http\Client\RequestException
      */
     public function registerFcmToken($notifiableId, $token, $platform, $topics = null)
     {
@@ -189,6 +198,7 @@ class NotificationClient
      * @param string $token
      * @param null|string[] $topics
      * @return bool
+     * @throws \Illuminate\Http\Client\RequestException
      */
     public function unregisterFcmToken($notifiableId, $token, $topics = null)
     {
@@ -210,6 +220,7 @@ class NotificationClient
      * @param string[] $topics
      * @param string $token
      * @return bool
+     * @throws \Illuminate\Http\Client\RequestException
      */
     public function subscribeTopic($topics, $token)
     {
@@ -229,6 +240,7 @@ class NotificationClient
      * @param string[] $topics
      * @param string $token
      * @return bool
+     * @throws \Illuminate\Http\Client\RequestException
      */
     public function unsubscribeTopic($topics, $token)
     {
@@ -247,6 +259,7 @@ class NotificationClient
     /**
      * @param string $notifiableId
      * @return array
+     * @throws \Illuminate\Http\Client\RequestException
      */
     public function getTokens($notifiableId)
     {
