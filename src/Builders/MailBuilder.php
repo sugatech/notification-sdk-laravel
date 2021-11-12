@@ -23,6 +23,11 @@ class MailBuilder
     protected $content;
 
     /**
+     * @var string
+     */
+    protected $contentType;
+
+    /**
      * @param array $emails
      * @return $this
      */
@@ -63,6 +68,16 @@ class MailBuilder
     }
 
     /**
+     * @param string $contentType
+     * @return $this
+     */
+    public function setContentType($contentType)
+    {
+        $this->contentType = $contentType;
+        return $this;
+    }
+
+    /**
      * @return string[]
      */
     public function getEmails()
@@ -84,6 +99,14 @@ class MailBuilder
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContentType()
+    {
+        return $this->contentType;
     }
 
     /**
