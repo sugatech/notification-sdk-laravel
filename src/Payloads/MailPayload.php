@@ -22,6 +22,11 @@ class MailPayload extends Payload
     protected $content;
 
     /**
+     * @var string
+     */
+    protected $contentType;
+
+    /**
      * MailPayload constructor.
      * @param MailBuilder $mailBuilder
      */
@@ -30,6 +35,7 @@ class MailPayload extends Payload
         $this->emails = $mailBuilder->getEmails();
         $this->title = $mailBuilder->getTitle();
         $this->content = $mailBuilder->getContent();
+        $this->contentType = $mailBuilder->getContentType();
     }
 
     /**
@@ -58,6 +64,7 @@ class MailPayload extends Payload
             'emails' => $this->emails,
             'title' => $this->title,
             'content' => $this->content,
+            'content_type' => $this->contentType
         ];
     }
 }
