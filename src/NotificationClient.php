@@ -268,4 +268,23 @@ class NotificationClient
         })
             ->json();
     }
+
+    /**
+     * @param string $notifiableId
+     * @param null|string[] $topics
+     * @return bool
+     * @throws \Illuminate\Http\Client\RequestException
+     */
+    public function removeFcmTokens($notifiableId, $topics = null)
+    {
+        $params = [
+            'topics' => $topics,
+        ];
+
+        return $this->request(function (PendingRequest $request) use ($params, $notifiableId) {
+            return $request->asJson()
+                ->post($this->getUrl(sprintf('/fcm/%s/tokens/unregister', $notifiableId)), $params);
+        })
+            ->successful();
+    }
 }
