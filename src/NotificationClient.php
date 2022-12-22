@@ -246,7 +246,7 @@ class NotificationClient
     {
         $params = [
             'topics' => $topics,
-            'tokens' => $token,
+            'token' => $token,
         ];
 
         return $this->request(function (PendingRequest $request) use ($params) {
